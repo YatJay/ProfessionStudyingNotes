@@ -93,17 +93,54 @@
 
 有些网站为了节省成本，不会把CDN部署在国外。假设现在你自己的网络公司有一个网站，但你的客户群体主要是在国内，因为国外用户不多，所以就不值得在国外搭建CDN，因此这样从国外访问国内的网站就很可能直接访问的就是主站的真实IP地址。
 
-这里需要注意的是[超级ping工具](https://ping.chinaz.com/)提供的国外节点比较少，而且往往是一些非冷门的国家，因此在进行国外地址请求访问时要避免使用。这里推荐[App Synthetic Monitor](https://asm.ca.com/en/ping.php)  (当前已经无法免费使用)。除此之外，还可以使用VPN里的冷门国家节点来进行ping测试。
+这里需要注意的是[超级ping工具](https://ping.chinaz.com/)提供的国外节点比较少，而且往往是一些非冷门的国家，因此在进行国外地址请求访问时要避免使用。这里推荐[App Synthetic Monitor](https://asm.ca.com/en/ping.php)  (当前已经无法免费使用)、[IPIPtools](https://tools.ipip.net/cdn.php) (国产)。除此之外，还可以使用VPN里的冷门国家节点来进行ping测试。
 
 ### 遗留文件搜索
 
 #### 什么是遗留文件？
 
-- 一些站点在搭建之初，会用到一些文件测试站点，例如“phpinfo()”文件，此类文件里就有可能包含了真实的IP地址。可以利用Google搜索引擎搜索关键字“site:xxx.com inurl:phpinfo.php”，搜索站点是否有遗留文件
+一些站点在搭建之初，会用到一些文件测试站点，例如“phpinfo()”文件，此类文件里就有可能包含了真实的IP地址。可以利用Google搜索引擎搜索关键字“site:xxx.com inurl:phpinfo.php”，搜索站点是否有遗留文件
 
-- ### 扫描全网
+### 扫描全网
 
-- 一旦以上方法都不行，究极办法就是，借助工具用世界各地的IP访问该网站，之后搜集整理响应的IP地址，而后分析筛选这些IP地址。由于1.不可能每一个IP都有CDN；2. 搜集整理的这些IP地址中一定有主站的真实IP；3. 
+一旦以上方法都不行，究极办法就是，借助工具从世界各地的IP访问该网站，之后搜集整理响应的IP地址，而后分析筛选这些IP地址。由于
+
+1. 不可能每一个IP都有CDN；
+2. 搜集整理的这些IP地址中一定有网站的真实IP；
+
+#### 几个扫全网的CDN绕过工具
+
+##### fuckcdn(优先选择)
+
+###### 项目地址
+
+https://github.com/Tai7sy/fuckcdn
+
+###### 使用注意
+
+优先选择fuckcdn
+
+
+
+##### w8fuckcdn
+
+###### 项目地址
+
+https://github.com/boy-hack/w8fuckcdn 
+
+###### 使用注意
+
+- target.log 配置扫描的IP段
+- config.py 设置要查找的文本、网站域名以及配置是否进行HTTPS扫描支持
+- 运行 `python fuckcdn.py` 
+
+##### zmap(老牌工具)
+
+###### 使用注意
+
+- 老牌工具，全网扫描大杀器
+- 网络配置要求较高，500M带宽起步
+
 
 ### 黑暗引擎搜索特定文件
 
@@ -121,7 +158,9 @@
 
 这里的特定文件，指的是站点的icon文件，也就是网站的图标，一般查看网页源代码可以找到，格式大致如下http://www.xx.com/favicon.ico  。
 
-在shodan搜索网站icon图标的语法为：http.favicon.hash:hash值，hash是一个未知的随机数，我们可以通过shodan语法来查看一个已经被shodan收录的网站的hash值，来进一步获取到所有带有某icon的网站。
+在shodan搜索网站icon图标的语法为：**http.favicon.hash:hash值**，hash是一个未知的随机数，我们可以通过shodan语法来查看一个已经被shodan收录的网站的hash值，来进一步获取到所有带有某icon的网站。
+
+对于特定文件来说，其有可能是缓存在CDN的特定文件，也可能是站点真实的特定文件，且不管是否为缓存的文件，其hash值是不会变化的，而黑暗引擎在搜索时会过滤掉缓存在CDN的特定文件的IP，即过滤掉CDN节点IP，返回的一般就是网站的真实IP。
 
 
 
@@ -147,34 +186,6 @@ DNS历史记录查询网站：
 
 **不过如果绑定某个CDN服务器地址，仍然能够成功访问。参考案例3：墨者安全最后的IP确定**
 
-### 几个扫全网的CDN绕过工具
-
-#### fuckcdn
-
-##### 项目地址
-
-https://github.com/Tai7sy/fuckcdn
-
-##### 使用注意
-
-优先选择fuckcdn
-
-#### w8fuckcdn
-
-##### 项目地址
-
-https://github.com/boy-hack/w8fuckcdn 
-
-##### 使用注意
-
-==///////////////////////////////////////////////////////////////////////////////////////////////////////////////////==
-
-#### zmap(老牌工具)
-
-##### 使用注意
-
-- 老牌工具
-- 网络配置要求较高，500M带宽起步
 
 # 涉及案例
 
@@ -218,10 +229,6 @@ https://www.xueersi.com/
 
 www.sp910.com
 
-### 目标网站
-
-www.sp910.com
-
 ### 方法1 子域名查询小技巧绕过
 
 此案例欲使用通过访问 www.sp910.com 和 m.sp910.com(手机访问界面) 的IP结果对比得到网站的真实IP的方法来绕过CDN。但当前此方法已经不可用。
@@ -254,7 +261,9 @@ www.sp910.com
 
 ### 方法四 国外地址请求获取真实IP
 
-略
+在线工具：[IPIPtools](https://tools.ipip.net/cdn.php)
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201231245188.png)
 
 
 
@@ -417,27 +426,29 @@ Hi YatJay,
 
 
 
-## 案例4：某在线赌博网站
+## 案例4：FreeBuf安全
 
 ### 目标网站
 
-https://7780802.com/  //无ico文件
+www.freebuf.com
 
 ### 绕过方法：黑暗引擎shodan搜指定的hash文件
 
 #### 1. 使用如下的Python脚本换算目标地址下的该文件的hash值
 
-需要Python2环境，别搞错了执行环境
+需要Python3环境，别搞错了执行环境
 
 安装mmh3失败记得先安装下这个Microsoft visual C++ 14.0https://pan.baidu.com/s/12TcFkZ6KFLhofCT-osJOSg  提取码: wkgv
 
 ```python
+import codecs
 import mmh3
 import requests
-response = requests.get('http://www.xx.com/favicon.ico')  ## 请求该网站的favicon.ico文件(该文件一般是网站独有、唯一的)，执行时修改此地址
-favicon = response.content.encode('base64')
+
+response = requests.get('https://www.xxx.com/favicon.ico')
+favicon = codecs.encode(response.content, "base64")
 hash = mmh3.hash(favicon)
-print('http.favicon.hash:' + str(hash))  ## 拿到文件hash值就去黑暗搜索引擎搜索去匹配
+print("http.favicon.hash:" + str(hash))
 ```
 
 
@@ -445,6 +456,14 @@ print('http.favicon.hash:' + str(hash))  ## 拿到文件hash值就去黑暗搜�
 #### 2. 通过得到的hash值再黑暗引擎中搜索是否有相同hash值，从而判断该文件所在的IP地址
 
 [黑暗引擎搜索参考公众号文章](https://mp.weixin.qq.com/s?biz=MzA5MzQ3MDE1NQ==&mid=2653939118&idx=1&sn=945b81344d9c89431a8c413ff633fc3a&chksm=8b86290abcf1a01cdc00711339884602b5bb474111d3aff2d465182702715087e22c852c158f&token=268417143&lang=zhCN#rd)
+
+在网页源代码中的到ico文件的路径为https://www.mozhe.cn/static/ico/favicon.ico
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201231819378.png)
+
+运行脚本得到该ico文件的hash值
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201231819246.png)
 
 在shodan中使用hash值得搜索语法为
 
@@ -454,7 +473,7 @@ http.favicon.hash:hash值
 
 搜索结果如下：
 
-
+![](https://gitee.com/YatJay/image/raw/master/img/202201231820646.png)
 
 # 涉及资源
 
