@@ -77,9 +77,13 @@ Access、MySQL、msSQL、Oracle、PostSQL、SQLite、MongoDB注入思路
 
 由于Access数据库架构问题，Access数据库不存在`database()`函数查数据库名，也没有`information_schema`数据库，因此就没有MySQL数据库的查数据库名、表名、列名等流程，只需直接来到查询指定数据这一步，查询过程中`select 字段1,字段2 from 表名`中的字段名、表名首先尝试暴力猜解即硬猜或用字典跑。
 
+#### Access偏移注入：解决列名猜解不到的情况
+
 ==遗留问题：==
 
 如果遇到列名猜解不到的情况，则可以使用Access偏移注入(下一节内容)
+
+**Day16 01:28:00左右，asp网站现在很少，此处略**
 
 ### SQL server/MSSQL注入
 
