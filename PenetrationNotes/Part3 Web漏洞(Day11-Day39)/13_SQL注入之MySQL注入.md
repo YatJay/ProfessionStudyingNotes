@@ -120,7 +120,7 @@ load_file(‘文件名‘)
 ?id=-1' union select 1,load_file('D:\\\JayProgram\\PHPstudy\\PHPTutorial\\WWW\\test.txt'),3--+
 ```
 
-![image-20220131112806387](C:/Users/HP/AppData/Roaming/Typora/typora-user-images/image-20220131112806387.png)
+![image-20220131112806387](https://gitee.com/YatJay/image/raw/master/img/202202221435820.png)
 
 ### into outfile 或 into dumpfile 导出函数
 
@@ -334,7 +334,7 @@ php中的magic_quotes_gpc是配置在php.ini中。
 
 (未讲解)
 
-##  SQL注入的防护：
+##  SQL注入的防护
 
 ### 1. 自带防御
 

