@@ -201,11 +201,11 @@ https://github.com/Audi-1/sqli-labs
 
 **信息收集**：不同于前面广义的信息收集，此处SQL注入的信息收集只涉及收集数据库相关的信息，为后续SQL注入操作做准备
 
-**数据注入**：看图：高低版本以MySQL5.0为界限，5.0版本之前没有information_schema数据库
+**数据注入**：看图：高低版本以MySQL5.0为界限，5.0版本之前没有`information_schema`数据库
 
 **高权限注入**：下一天
 
-![红框为本节内容](https://gitee.com/YatJay/image/raw/master/img/202201302156095.png)
+![](https://gitee.com/YatJay/image/raw/master/img/202201302156095.png)
 
 ### MySQL数据库的基本结构
 
@@ -223,7 +223,7 @@ https://github.com/Audi-1/sqli-labs
 
 鼠标右键phpstudy——MySQL工具——MySQL命令行——输入数据库密码——`mysql>`
 
-#### 常用的MySQL命令及其显示效果
+#### 常用的MySQL命令及其返回结果
 
 ##### 常用MySQL命令
 
@@ -261,7 +261,7 @@ https://github.com/Audi-1/sqli-labs
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201282338573.png)
 
-#### order by 1,2,3,4——用于猜解字段数量
+#### order by 1,2,3,4——用于猜解SQL语句返回结果的字段数量
 
 ###### 含义
 
@@ -273,10 +273,9 @@ sql语句中order by 1或者order by 2...order by N
 
 ###### 注意
 
+- 用于猜解SQL语句返回结果的字段数量，未必是最终显示在前端的字段数量
 - ORDER BY ASC应该没有这样写法,ORDER BY 后面不是字段就是数字;
-
 - 可以ORDER BY 1 ASC 或者ORDER BY COL1 ASC ;
-
 - ASC表示按升序排序,DESC表示按降序排序
 
 ###### 执行

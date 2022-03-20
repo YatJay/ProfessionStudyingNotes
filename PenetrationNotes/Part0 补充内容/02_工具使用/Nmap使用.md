@@ -66,6 +66,9 @@ PORT     STATE SERVICE
 MAC Address: 00:0C:29:99:D3:E6 (VMware)
 
 Nmap done: 1 IP address (1 host up) scanned in 0.36 seconds
+```
+
+```bash
 root@kali:~# nmap -p 80 192.168.31.13
 Starting Nmap 7.70 ( https://nmap.org ) at 2018-08-12 23:05 CST
 Nmap scan report for 192.168.31.13

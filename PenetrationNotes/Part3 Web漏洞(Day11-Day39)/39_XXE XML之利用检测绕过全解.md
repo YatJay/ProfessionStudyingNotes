@@ -55,7 +55,33 @@ DOS攻击
 
 ## 检测
 
-==//////////////////////==
+### 白盒
+
+#### 函数可控变量查找
+
+#### 传输和存储数据格式类型
+
+
+
+### 黑盒
+
+#### 人工方法
+
+##### 数据格式类型判断
+
+burpsuite截取数据包或爬取数据包(burp可以将网站的地址请求都爬一遍)，爬完之后在数据包中进行批量搜索`<user>test</user><pass>Mikasa</pass>`，这是一个xml格式的典型写法，如果出现此类写法，说明存在xml格式数据的传递，此时可能存在XXE漏洞
+
+##### Content-Type值判断
+
+burpsuite截取数据包或爬取数据包(burp可以将网站的地址请求都爬一遍)，爬完之后在数据包中进行批量搜索Content-Type字段，如果该字段的值出现了`text/xml`或`application/xml`，就说明该地址接收xml格式的数据传递，此时可能存在XXE漏洞，就可以尝试进行XXE漏洞测试
+
+##### 更改Content-Type值看返回
+
+若上述两种都搜索不到，尝试更改数据包中的Content-Type字段值，再将攻击语句写到提交数据处，看能否成功执行进行测试
+
+#### 工具扫描
+
+一般的漏洞扫描工具都能扫到XXE漏洞，专扫XXE的工具也可以扫到XXE漏洞
 
 # 演示案例
 
@@ -300,11 +326,15 @@ receive.php：
 
 https://www.cnblogs.com/20175211lyz/p/11413335.html
 
-## XXE-lab靶场登录框新命令数据传输测试——检测发现
+## xxe-lab靶场登录框新命令数据传输测试——检测发现
 
+根据上述知识点，对xxe-lab靶场(php_xxe)，手工检测是否存在XXE漏洞
 
+登录框任意输入后burp抓包，可以看到，数据包中的Content-Type值为`application/xml`，这说明传递的是一个xml格式的数据
 
+![](https://gitee.com/YatJay/image/raw/master/img/202203162054220.png)
 
+在数据部分提交XXE漏洞读取文件的payload
 
 
 
@@ -334,7 +364,7 @@ https://www.cnblogs.com/20175211lyz/p/11413335.html
 
 http://web.jarvisoj.com:9882/
 
-https://github.com/cOny1/xxe-lab
+https://github.com/c0ny1/xxe-lab
 
 https://github.com/enjoiz/XXEinjector
 
@@ -342,4 +372,8 @@ https://download.vulnhub.com/xxe/XXE.zip
 
 https://www.cnblogs.com/bmjoker/p/9614990.html
 
+附加：
+
 XXE漏洞详细参考：https://www.cnblogs.com/20175211lyz/p/11413335.html
+
+XML外部实体注入参考：https://xz.aliyun.com/t/6754

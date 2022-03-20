@@ -19,9 +19,9 @@
 
 攻击目的可能是
 
-1. 获取网站数据，
+1. 获取网站数据；
 
-2. 获取网站权限，
+2. 获取网站权限；
 
 3. 其他；
 
@@ -197,7 +197,7 @@
 
 ## SQL注入漏洞——数据库操作危害
 
-提交查询 ‘1’ 
+提交查询` 1`
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202201280944958.png)
 
@@ -261,7 +261,7 @@ http://localhost/pikachu/vul/dir/dir_list.php?title=truman.php
 
 ### 目录遍历漏洞案例二
 
-试在www目录下创建dir.php，代码如下(该代码列出文件目录树)
+试在www目录下创建`dir.php`，代码如下(该代码列出文件目录树)
 
 ```php
 <?php
