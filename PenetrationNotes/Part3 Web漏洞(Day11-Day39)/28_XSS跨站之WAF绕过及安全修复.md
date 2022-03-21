@@ -52,7 +52,7 @@ XSStrike主要特点：反射和DOM XSS扫描
 - Bruteforce payloads支持
 - Payload 编码
 
-### 工具使用
+### 工具使用——常用参数
 
 ```bash
 -h, --help 			//显示帮助信息
@@ -96,6 +96,8 @@ XSStrike主要特点：反射和DOM XSS扫描
   - JAVA:https://www.cnblogs.com/baixiansheng/p/9001522.html
 
 ## JAVA XSS平台练习
+
+无
 
 # 演示案例
 

@@ -147,7 +147,7 @@ if($_SESSION["admin"]!="jfdd"){
 
 00:34:00–01:02:00
 
-## Kali Linux的Beef-Xss漏洞利用框架的使用
+## Kali Linux的BeEf-Xss漏洞利用框架的使用
 
 见于补充内容中的工具使用目录下，如下链接
 

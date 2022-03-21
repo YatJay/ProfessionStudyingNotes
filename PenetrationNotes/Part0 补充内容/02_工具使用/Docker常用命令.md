@@ -64,9 +64,9 @@ service docker stop
 
 ### 列出镜像
 
- docker image ls
- 				
- docker images
+ docker image ls	
+
+docker images
 
 ### 删除镜像
 

@@ -70,11 +70,148 @@
 
 ## Java反序列化及命令执行代码测试
 
+定义一个Person类如下，由于其实现` java.io.Serializable` 接口，而且所有属性都是可序列化的
+
+```java
+package com.company;
+
+import java.io.Serializable;
+
+public class Person implements Serializable {
+    private int id;
+    private String name;
+    private int age;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Person(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+
+```
+
+### 序列化示例
+
+用于测试序列化的带啊SerializationTest.java如下
+
+```java
+package com.company;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class SerializationTest  {
+    public static void main(String[] args) throws IOException {
+        Person p1 = new Person(1, "jack", 19);
+        Person p2 = new Person(2, "mary", 22);
+        List<Person> list = new ArrayList();
+        list.add(p1);
+        list.add(p2);
+
+        // 创建文件流
+//FileOutputStream将数据写入 File 或 FileDescriptor 的输出流
+        FileOutputStream fos = new FileOutputStream("D:/person.txt");  
+//ObjectOutputStream将Java对象的原始数据类型和图形写入OutputStream
+        ObjectOutputStream os = new ObjectOutputStream(fos);  
+//writeObject方法对参数指定的obj对象进行序列化，把字节序列写到一个目标输出流中按Java的标准约定是给文件一个.ser扩展名
+        os.writeObject(list);
+        os.close();
+        System.out.println("serialization  success");
+    }
+}
+
+```
+
+执行上述代码，得到序列化之后的对象，保存在`D:/person.txt`中
+
+![](https://gitee.com/YatJay/image/raw/master/img/202203211545420.png)
 
 
 
+### 反序列化示例
+
+用于测试反序列化的代码DeserializationTest.java如下
+
+```java
+package com.company;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
+public class DeserializationTest {
+
+    public static void main(String[] args) throws IOException {
+        //创建文件输入流
+        FileInputStream fis = new FileInputStream("D:/person.txt");
+        //ObjectInputStream对以前使用ObjectOutputStream写入的基本数据和对象进行反序列化
+        ObjectInputStream is = new ObjectInputStream(fis);
+        //声明动态数组用于接收反序列化结果
+        List<Person> list = new ArrayList<Person>();
+        try {
+            list = (List<Person>)is.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        is.close();
+
+        //遍历list，输出
+        for (Person person:list){
+            System.out.println(person.toString());
+        }
+
+    }
+
+}
+
+```
+
+执行上述代码，读取`D:/person.txt`并生成其反序列化结果输出
+
+![](https://gitee.com/YatJay/image/raw/master/img/202203211554989.png)
 
 ## WebGoat Javaweb靶场反序列化测试
 

@@ -6,9 +6,9 @@
 
 ### 什么是HttpOnly
 
-如果您在cookie中设置了HttpOnly属性，那么**通过js脚本将无法读取到cookie信息**，这样能有效的防止XSS攻击
+如果在Cookie中设置了HttpOnly属性，那么**通过js脚本将无法读取到cookie信息**，这样能有效的防止XSS攻击
 
-注意HttpOnly只是阻止js脚本传递Cookie信息，并不能防止XSS漏洞
+注意：HttpOnly只是阻止js脚本传递Cookie信息，并不能防止XSS漏洞
 
 ### PHP设置COOKIE的HttpOnly属性
 
@@ -169,15 +169,13 @@ XSS在线平台也提供，直接读取浏览器保存的密码的功能模块�
 
 ### XSS直接读取浏览器保存的账号密码
 
-==//////////==  
-
-==当前几个在线XSS平台尚且无法使用以上功能模块== 
+==目前几个在线XSS平台尚且无法使用以上功能模块== 
 
 ## Xss-labs关卡代码过滤绕过测试
 
 ### Level-1
 
-更改url中GET方式提交的name参数值，可见页面显示的欢迎用户后的值也会改变，因此我们在GET提交的name参数处添加XSS测试代码`<script>alert(1)</script>`，可以成功执行，说明此处存在XSS漏洞
+更改URL中GET方式提交的name参数值，可见页面显示的欢迎用户后的值也会改变，因此我们在GET提交的name参数处添加XSS测试代码`<script>alert(1)</script>`，可以成功执行，说明此处存在XSS漏洞
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202203042008832.png)
 
@@ -197,7 +195,8 @@ XSS在线平台也提供，直接读取浏览器保存的密码的功能模块�
 <?php 
 ini_set("display_errors", 0);
 $str = $_GET["keyword"];
-echo "<h2 align=center>没有找到和".htmlspecialchars($str)."相关的结果.</h2>".'<center>
+echo "<h2 align=center>没有找到和".htmlspecialchars($str)."相关的结果.</h2>".'
+<center>
 <form action=level2.php method=GET>
 <input name=keyword  value="'.$str.'">
 <input type=submit name=submit value="搜索"/>
@@ -206,9 +205,9 @@ echo "<h2 align=center>没有找到和".htmlspecialchars($str)."相关的结果.
 ?>
 ```
 
-可见是通过PHP的htmlspecialchars($str)函数，把提交到后台的keyword参数进行了转义
+可见是通过PHP的`htmlspecialchars($str)`函数，把提交到后台的keyword参数进行了转义
 
-htmlspecialchars()函数的功能是把预定义的字符 "<" （小于）和 ">" （大于）转换为 HTML 实体
+`htmlspecialchars()`函数的功能是把预定义的字符 "<" （小于）和 ">" （大于）转换为 HTML 实体
 
 但是通过查看前端代码我们发现，除了`<h2 align=center>没有找到和&lt;script&gt;alert(1)&lt;/script&gt;相关的结果.</h2><center>`这句代码，将提交的js代码进行了转义，下面还有一句`<input name=keyword  value="<script>alert(1)</script>">`中的js代码并没有被转义
 
@@ -216,13 +215,13 @@ htmlspecialchars()函数的功能是把预定义的字符 "<" （小于）和 ">
 
 我们设法使得`<input name=keyword  value="<script>alert(1)</script>">`中`<script>`标签前的双引号和`input`标签闭合，那么`<script>`标签就会被浏览器作为js脚本执行(后面的双引号和>闭合与否都可执行)，因此，我们提交的XSS语句变为
 
-```
+```html
 "><script>alert(1)</script>
 ```
 
 以上的input标签开始的语句就变成了
 
-```
+```html
 <input name=keyword  value=""><script>alert(1)</script>">
 ```
 
@@ -242,7 +241,7 @@ htmlspecialchars()函数的功能是把预定义的字符 "<" （小于）和 ">
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202203052026604.png)
 
-并没有成功XSS弹窗，查看后台代码，发现提交的XSS语句内容中的js标签的**尖括号**被转义
+并没有成功XSS弹窗，查看页面源代码，发现提交的XSS语句内容中的js标签的**尖括号**被转义
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202203052028767.png)
 
@@ -260,7 +259,7 @@ htmlspecialchars()函数的功能是把预定义的字符 "<" （小于）和 ">
 
 onclick 属性由元素上的鼠标点击触发。
 
-**注释：**onclick 属性不适用以下元素：<base>、<bdo>、<br>、<head>、<html>、<iframe>、<meta>、<param>、<script>、<style> 或 <title>。
+**注释：**onclick 属性不适用以下元素：`<base>`、`<bdo>`、`<br>`、`<head>`、`<html>`、`<iframe>`、`<meta>`、`<param>`、`<script>`、`<style>` 或 `<title>`。
 
 ##### 示例
 
@@ -291,6 +290,8 @@ onclick 属性由元素上的鼠标点击触发。
 ```html
 11111' onclick='alert(1)
 ```
+
+因而可以绕过对于提交内容中的尖括号的过滤
 
 提交后不会直接弹窗，需要手动点击输入框处，才能成功弹窗
 
@@ -565,7 +566,7 @@ else
 &#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#58;&#97;&#108;&#101;&#114;&#116;&#40;&#49;&#41;&#59;//http://
 ```
 
-提交后天机友情链接，成功触发XSS语句
+提交后添加友情链接，成功触发XSS语句
 
 ![](https://gitee.com/YatJay/image/raw/master/img/202203061029500.png)
 
@@ -637,7 +638,7 @@ echo "<h2 align=center>没有找到和".htmlspecialchars($str)."相关的结果.
 查看后端PHP代码
 
 ```php
-<?php 
+<?php
 ini_set("display_errors", 0);
 $str = $_GET["keyword"];
 $str00 = $_GET["t_sort"];
@@ -659,9 +660,9 @@ echo "<h2 align=center>没有找到和".htmlspecialchars($str)."相关的结果.
 
 `$_SERVER['HTTP_REFERER'];`提交的这个参数才会输出到一个`type="hidden"`的input标签中，且参数值不能出现尖括号
 
-#### $_SERVER['HTTP_REFERER'] 
+#### $_SERVER['HTTP_REFERER']
 
-$_SERVER['HTTP_REFERER']  链接到当前页面的前一页面的 URL 地址。
+`$_SERVER['HTTP_REFERER'] ` 链接到当前页面的前一页面的 URL 地址。
 
 而HTTP头中的Referer属性表示该次请求的来源，一般用于做防盗链
 
@@ -684,11 +685,12 @@ admin某一天看到攻击者的博客并打开访问，如果此刻admin浏览�
 - 攻击者博客地址跳转：Referer:攻击者域名
 - xioadi8域名跳转：Referer:xioadi8域名
 
-这个过程也是一类XSS攻击+CSRF跨站请求伪造。
+这个过程也是一类XSS攻击 + CSRF跨站请求伪造。
 
 #### 构造XSS语句
 
 绕过思路和上一关一样，但是提交参数的位置不是GET方式，而是`$_SERVER['HTTP_REFERER'];`，因此抓包后修改数据包，在HTTP头部中的Referer属性中提交XSS语句payload
+
 原始input标签如下
 
 ```html
