@@ -60,7 +60,7 @@
 4. 编译.java文件：命令`javac Hello.java`，会生成一个class文件
 5. 运行.class文件：命令`java Hello`
 
-![](https://gitee.com/YatJay/image/raw/master/img/202202061522778.png)
+![202202061522778](https://img.yatjay.top/md/202203261102542.png)
 
 ## 注意事项：
 
@@ -74,7 +74,7 @@
 
 Java既有编译型特点，又有解释型特点
 
-![](https://gitee.com/YatJay/image/raw/master/img/202202061531528.png)
+![202202061531528](https://img.yatjay.top/md/202203261059625.png)
 
 # 使用IDEA开发 
 

@@ -87,4 +87,4 @@
 
 - JVM : JAVA Virtual Machine   Java虚拟机——跨平台核心
 
-![](https://gitee.com/YatJay/image/raw/master/img/202202061409407.png)
+![202202061409407](https://img.yatjay.top/md/202203261058073.png)

@@ -21,7 +21,7 @@
 
 一般代码执行SQL语句的过程，本质上就是传递SQL语句到数据库中去执行
 
-SQL注入即是通过参数传递，将恶意SQL语句传到后台可以执行的SQL语句当中，实现自定义的攻击方式
+SQL注入即是**通过参数传递，将恶意SQL语句传到后台可以执行的SQL语句当中**，实现自定义的攻击方式
 
 1. 对用户输入的参数没有进行严格过滤（如过滤单双引号 尖括号等），就被带到数据库执行，造成了SQL注入
 2. 使用了字符串拼接的方式构造SQL语句
@@ -38,13 +38,13 @@ SQL注入即是通过参数传递，将恶意SQL语句传到后台可以执行�
 
 ### MySQL注入之总体思路
 
-![](https://gitee.com/YatJay/image/raw/master/img/202201302159002.png)
+
 
 ### MySQL注入之MySQL基础
 
 一条SQL语句的执行结果是一条或多条数据记录
 
-- `order by 1,2,3,4`：用于猜解SQL语句返回结果的字段数量
+- 句返回结果的字段数量
 
 - `select 1,2,3,4`：猜解输出位置
 
@@ -67,7 +67,7 @@ SQL注入即是通过参数传递，将恶意SQL语句传到后台可以执行�
 
 #### 基本流程
 
-![](https://gitee.com/YatJay/image/raw/master/img/202201281932899.png)
+![202201281932899](https://img.yatjay.top/md/202203261110509.png)
 
 ##### 第1步：判断是否存在注入点
 
@@ -191,7 +191,7 @@ php中的`magic_quotes_gpc`是配置在php.ini中。
 
 `magic_quotes_gpc`开关在高版本的PHP中已经移除。。。
 
-![](https://gitee.com/YatJay/image/raw/master/img/202201312146770.png)
+![202201312146770](https://img.yatjay.top/md/202203261111607.png)
 
 ##### 魔术引号的绕过
 
@@ -258,7 +258,7 @@ php中的`magic_quotes_gpc`是配置在php.ini中。
 
 除了Access数据库之外，其他数据库的架构类似，其他数据库的SQL注入基本步骤如下所示
 
-![](https://gitee.com/YatJay/image/raw/master/img/202202062132539.png)
+![202202062132539](https://img.yatjay.top/md/202203261111797.png)
 
 ### 明确数据库类型、权限——连接数据库的文件即数据库配置文件决定注入点用户权限
 
