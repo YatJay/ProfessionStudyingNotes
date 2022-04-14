@@ -56,6 +56,14 @@
 
 5. 浏览器在接收到这些攻击性代码后，根据网站B的请求，在用户不知情的情况下携带Cookie信息，向网站A发出请求。网站A并不知道该请求其实是由B发起的，所以会根据用户C的Cookie信息以C的权限处理该请求，导致来自网站B的恶意代码被执行。
 
+
+
+受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求`http://bank.example/withdraw?account=bob&amount=1000000&for=bob2`可以使Bob把1000000 的存款转到bob2的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该session 的用户Bob已经成功登陆。
+
+黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：`http://bank.example/withdraw?account=bob&amount=1000000&for=Mallory`。但是这个请求来自 Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。
+
+这时，Mallory 想到使用CSRF的攻击方式，他先自己做一个网站，在网站中放入如下代码：` src=”http://bank.example/withdraw?account=bob&amount=1000000&for=Mallory”`，并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从Bob的浏览器发向银行，而这个请求会附带Bob浏览器中的cookie一起发向银行服务器。大多数情况下，该请求会失败，因为他要求Bob的认证信息。但是，如果Bob当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的session尚未过期，浏览器的cookie之中含有Bob的认证信息。这时，悲剧发生了，这个url请求就会得到响应，钱将从Bob的账号转移到Mallory的账号，而Bob当时毫不知情。等以后Bob发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而Mallory则可以拿到钱后逍遥法外。
+
 ## 修复与防御方案
 
 1. 当用户发送重要的请求时需要输入**原始密码**
