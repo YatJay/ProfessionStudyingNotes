@@ -1,7 +1,3 @@
-XXE漏洞原理
-
-[ATLSec ](https://www.freebuf.com/author/ATL安全团队)2021-02-08 14:41:54 282103 3
-
 ## 简介
 
 XXE全称XML External Entity InjectionXML在引入外部实体的时候完成注入攻击称为XXE。那么它带来的危害有那些：
