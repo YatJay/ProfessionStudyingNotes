@@ -1,23 +1,21 @@
 [toc]
 
-前言：本章节将讲解各种 WEB 层面上的有那些漏洞类型，具体漏洞的危害等级，以简要的影响范围测试进行实例分析，思维导图中的漏洞也是后面我们将要学习到的各个知识点，其中针对漏洞的形成原理，如何发现，如何利用将是本章节学习的重点内容！（**右边相对于左边比较重要，实战中左边漏洞较少**）
+前言：本章节将讲解各种 WEB 层面上的有那些漏洞类型，具体漏洞的危害等级，以简要的影响范围测试进行实例分析，思维导图中的漏洞也是后面我们将要学习到的各个知识点，其中针对漏洞的形成原理，如何发现，如何利用将是本章节学习的重点内容！（**右边相对于左边比较重要，实战中右边漏洞较多，左边漏洞较少**）
 
-![](https://img.yatjay.top/md/202203251625114.png)
+![](./assets/202203251625114.png)
 
 # 涉及知识
 
 ## Web漏洞应用场景
 
 - CTF
-- SRC(Security Response Center,应急响应中心)：注重漏洞理解
+- SRC挖掘(Security Response Center,应急响应中心)：注重漏洞理解
 - 红蓝对抗
 - 实战：注重权限获取
 
-## 简要说明以上漏洞危害情况
+## 各种漏洞危害情况
 
-### 不同漏洞的危害程度和影响范围不同
-
-攻击目的可能是
+不同漏洞的危害程度和影响范围不同，攻击目的可能是
 
 1. 获取网站数据；
 
@@ -193,31 +191,31 @@
 
 下载后安装到本地站点根目录下，修改/inc/config.inc.php文件配置数据库信息，再访问站点进行初始化
 
-![](https://img.yatjay.top/md/202203251627442.png)
+![](./assets/202203251627442.png)
 
 ## SQL注入漏洞——数据库操作危害
 
 提交查询` 1`
 
-![](https://img.yatjay.top/md/202203251627803.png)
+![](./assets/202203251627803.png)
 
 对比源代码和数据库内容
 
 相关代码
 
-![](https://img.yatjay.top/md/202203251627246.png)
+![](./assets/202203251627246.png)
 
 相关数据表内容
 
-![](https://img.yatjay.top/md/202203251627846.png)
+![](./assets/202203251627846.png)
 
 burp抓包
 
-![](https://img.yatjay.top/md/202203251627812.png)
+![](./assets/202203251627812.png)
 
 修改数据包的id后提交查询
 
-![](https://img.yatjay.top/md/202203251627199.png)
+![](./assets/202203251627199.png)
 
 可见SQL注入能够直接获取到数据库里面的数据，甚至是敏感数据。通过注入点就可以和数据库进行交互。
 
@@ -241,13 +239,13 @@ http://localhost/pikachu/vul/dir/dir_list.php?title=truman.php
 
 `D:\JayProgram\PHPstudy\PHPTutorial\WWW\pikachu\vul\dir\soup\jarheads.php`
 
-![](https://img.yatjay.top/md/202203251627842.png)
+![](./assets/202203251627842.png)
 
 那么获取`D:\JayProgram\PHPstudy\PHPTutorial\WWW\test.php`就应该访问
 
 `http://localhost/pikachu/vul/dir/dir_list.php?title=../../../../test.php`
 
-![](https://img.yatjay.top/md/202203251627491.png)
+![](./assets/202203251627491.png)
 
 同理就能访问到网站配置文件等关键信息比如此靶场的config.inc.php文件中就写有数据库管理账号及密码。
 
@@ -290,11 +288,11 @@ echo "</pre>";
 
 在浏览器中进行访问网址，http://127.0.0.1/dir.php?d=pikachu，可以访问到pikachu文件夹的结构
 
-![](https://img.yatjay.top/md/202203251627268.png)
+![](./assets/202203251627268.png)
 
 在在浏览器中进行访问网址，http://127.0.0.1/dir.php?d=…\ 即可访问到www上一级的全部文件结构
 
-![](https://img.yatjay.top/md/202203251627448.png)
+![](./assets/202203251627448.png)
 
 到此，通过这个漏洞，我们可以获取到整个网站的**源码结构，文件名**。我们需要结合其他思路和漏洞进行安全测试
 
@@ -318,33 +316,33 @@ phpinfo();
 
 但是客户端检查文件后缀名，所以写好PHP文件之后，将文件后缀改成.jpg格式
 
-![](https://img.yatjay.top/md/202203251628778.png)
+![](./assets/202203251628778.png)
 
 对改名之后的文件进行上传
 
-![](https://img.yatjay.top/md/202203251628092.png)
+![](./assets/202203251628092.png)
 
 尝试访问，提示无法访问。这是因为提交的文件本质上是php代码修改成了jpg后缀，而访问时服务器认为是jpg格式文件进行解析，所以出错。
 
-![](https://img.yatjay.top/md/202203251628289.png)
+![](./assets/202203251628289.png)
 
 针对客户端检查的文件上传漏洞，可以在上传后使用burp抓包，把jpg后缀修改回php后缀，既绕过了上传时的后缀名检查，又实现了php文件上传。
 
 修改前
 
-![](https://img.yatjay.top/md/202203251628164.png)
+![](./assets/202203251628164.png)
 
 修改后
 
-![](https://img.yatjay.top/md/202203251628126.png)
+![](./assets/202203251628126.png)
 
 发送数据包进行上传
 
-![](https://img.yatjay.top/md/202203251628683.png)
+![](./assets/202203251628683.png)
 
 访问上传的php文件则访问到的正是我们写好的php文件的内容
 
-![](https://img.yatjay.top/md/202203251628048.png)
+![](./assets/202203251628048.png)
 
 **利用文件上传漏洞可以将自己的后门文件传到网站上去，植入后门，通过访问触发后门文件，以及获取网站权限。因此文件上传漏洞是高危漏洞**
 
@@ -354,7 +352,7 @@ phpinfo();
 
 通过点击对应的人名，我们发现可以下载图片下来
 
-![](https://img.yatjay.top/md/202203251628770.png)
+![](./assets/202203251628770.png)
 
 下载照片后，复制照片的下载地址，进行比对，发现只有文件名不同，我们可以尝试下文件下载漏洞
 
@@ -368,7 +366,7 @@ http://127.0.0.1/pikachu/vul/unsafedownload/execdownload.php?filename=kb.png
 
 在已知网站的结构下（我有着整个网站的源码），我们可以通过改变后面的ai.png这些来下载同级或者不同级目录下的其他文件，在这里我们选择下载www目录下phpinfo.php文件，成功下载
 
-![](https://img.yatjay.top/md/202203251628880.png)
+![](./assets/202203251628880.png)
 
 ### 文件下载漏洞案例二
 
@@ -392,7 +390,7 @@ http://down.znds.com/getdownurl/?s=aW5kZXgucGhw
 
 失败
 
-![](https://img.yatjay.top/md/202203251628887.png)
+![](./assets/202203251628887.png)
 
 # 涉及资源
 
