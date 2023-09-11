@@ -1,4 +1,4 @@
-# OSI七层模型
+# 6-1 OSI七层模型
 
 ## OSI网际互连
 
@@ -17,26 +17,23 @@ OSI(Open System Interconnect,开放系统互联参考模型)，是由**ISO(国�
 
 ### 知识扩展
 
-OSI ( Open System Interconnect )开放系统互联参考模型
+|                                                           |                                                              |
+| --------------------------------------------------------- | ------------------------------------------------------------ |
+| **OSI** ( Open System Interconnect )                      | 开放系统互联参考模型                                         |
+| **ISO**( International Organization for Standardization ) | 国际标准化组织                                               |
+| **IOS** ( Internetwork Operating System )                 | 思科网络操作系统「华为的网络操作系统叫VRP、华三的网络操作系统叫Comware、锐捷的网络操作系统叫RGOS] |
+| iOS( iPhone Operating System )                            | 苹果移动操作系统「2010年获得思科名称授权」                   |
 
-ISO( International Organization for Standardization )国际标准化组织
+#### 常见国际标准化组织
 
-IOS ( Internetwork Operating System )思科网络操作系统「华为的网络操作系统叫VRP、华三的网络操作系统叫Comware、锐捷的网络操作系统叫RGOS]
-( iPhone Operating System )苹果移动操作系统「2010年获得思科名称授权」
-
-#### 国际标准化组织
-
-国际标准化组织(ISO )
-
-电子电气工程师协会（IEEE)
-
-美国国家标准局（ANSI )
-
-电子工业协会(EIA / TIA )
-
-国际电信联盟( ITU )：运营商相关
-
-INTERNET工程任务委员会（IETF)：RFC文档即由此机构定义如OSPF，很多人是思科的工程师
+|                                                   |                                                     |                                                              |
+| ------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
+| 国际标准化组织(ISO)                               | （International Organization for Standardization)   | 标准化领域中的一个国际组织,，定义很多领域的国际标准          |
+| 电子电气工程师协会(IEEE)                          | (Institute of Electrical and Electronics Engineers) | 定义一些二层标准，如以太网                                   |
+| 美国国家标准局(ANSI)                              | (American National Standards Institute)             |                                                              |
+| 电子工业协会(EIA/TIA )                            | (Electronic Industries Association)                 |                                                              |
+| 国际电信联盟( ITU )                               | (International Telecommunication Union)             | 运营商相关标准制定                                           |
+| 国际互联网工程任务组/INTERNET工程任务委员会(IETF) | (The Internet Engineering Task Force)               | **网络层**的很多标准由其定义，**RFC文档**即由此机构定义如OSPF，很多人是思科的工程师 |
 
 ## OSI的优点
 
