@@ -439,6 +439,8 @@ http://124.70.71.251:49122/orders/3/%23_memberAccess%3d%40ognl.OgnlContext%40DEF
 
 ## 一句话Webshell后门原理代码执行——拓展说明
 
+文章：[浅谈php一句话木马](https://xz.aliyun.com/t/6957)
+
 本节所讲的代码执行漏洞原理即一句话木马连接Webshell后门的原理，比如中国菜刀的readme.txt文件中提供的php一句话木马为
 
 ```php
