@@ -1,4 +1,4 @@
-# Linux文件和目录操作命令(13个文件或目录操作命令，常考)
+# 9-9 Linux文件和目录操作命令(13个文件或目录操作命令，常考)
 
 ## 文件读取命令
 
@@ -30,10 +30,10 @@ less命令：less命令的功能与more命令很相似，也是按页显示文�
 
 cp命令：复制文件，相当于复制粘贴
 
-命令格式：cp[-选项]sourcefileName l directory destfileName l directory
+命令格式：`cp[-选项] sourcefileName | directory destfileName | directory`
 
-- a：整个目录复制。它保留链接、文件属性，并递归地复制子目录
-- -f：删除已经存在的目标目录中的同名文件且不提示，即强制覆盖掉目标目录中的重名文件
+- `a`：整个目录复制。它保留链接、文件属性，并递归地复制子目录
+- `-f`：删除已经存在的目标目录中的同名文件且不提示，即强制覆盖掉目标目录中的重名文件
 
 ### mv
 
@@ -43,11 +43,11 @@ mv命令：移动文件
 
 rm命令：删除文件
 
-命令格式：rm[-选项]fileName |directory
+命令格式：`rm[-选项]fileName |directory`
 
--f：忽略不存在的文件，从不给出提示。
+`-f`：force 强制删除，忽略不存在的文件，从不给出提示。
 
--r：指示rm将参数中列出的全部目录和子目录均递归地删除。
+`-r`：指示rm将参数中列出的全部目录和子目录均递归地删除。
 
 删库跑路：rm -rf /*
 
@@ -55,31 +55,31 @@ rm命令：删除文件
 
 ### mkdir和rmdir
 
-创建/删除目录命令mkdir rmdir
+创建/删除目录命令`mkdir` `rmdir`
 
 ### cd
 
-切换目录命令cd
+切换目录命令`cd`
 
 ### pwd
 
-显示当前目录命令pwd 
+显示当前目录命令`pwd `
 
-示例：[root@redhat-64-]      # pwd显示的路径名为/home/sun
+示例：`[root@redhat-64-]      # pwd显示的路径名为/home/sun`
 
 ### ls
 
-列目录命令ls
+列目录命令`ls`
 
 ### chmod
 
-文件访问权限命令chmod 
+文件访问权限命令`chmod `
 
-示例：chmod g+rw test.txt     # 为同一个用户组的用户添加对test.txt的读写权限
+示例：`chmod g+rw test.txt     # 为同一个用户组的用户添加对test.txt的读写权限`
 
-### ln 
+### ln
 
-文件链接命令In 。In 命令的功能是在文件之间创建链接，相当于快捷方式。
+文件链接命令`ln` 。ln 命令的功能是在文件之间创建链接，相当于快捷方式。
 
 ## 例题
 

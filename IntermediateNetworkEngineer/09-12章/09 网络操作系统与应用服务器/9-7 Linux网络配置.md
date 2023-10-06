@@ -1,8 +1,8 @@
-# Linux网络配置
+# 9-7 Linux网络配置
 
 ## Linux网络配置基础
 
-Linux系统，设备和配置都是文件
+Linux系统，设备和配置**都是文件**
 
 网络相关配置文件大多数位于**/etc**目录下
 
@@ -12,10 +12,12 @@ Linux系统，设备和配置都是文件
 
 ## Linux下几个重要的网络配置文件
 
-1. 网络配置文件:/etc/sysconfig/network-script/ifcfg-en1621222
+1. 网络配置文件：`/etc/sysconfig/network-script/ifcfg-en1621222`
 
+   不要求会写，但要求能够看得懂
 
-TYPE=Ethernet          #网络接口类型(即网卡接口类型)
+```shell
+TYPE=Ethernet   #网络接口类型(即网卡接口类型)
 
 BOOTPROTO=none  #静态地址
 
@@ -40,21 +42,23 @@ ONBOOT=no
 **HWADDR=O0:0C:29:61:34:7D#网卡物理地址**
 
 ......
+注意：**加粗**重点项目
+```
 
-2. /etc/hostname：系统主机名文件
-3. /etc/hosts：包含**IP地址**和**主机名**之间的映射，还包含**主机别名**
+2. `/etc/hostname`：系统主机名文件
+3. `/etc/hosts`：包含**IP地址**和**主机名**之间的映射，还包含**主机别名**
    - 127.0.0.1 pc1 localhost    #127.0.0.1是IP地址，pc1是主机名，localhost是别名
    - 192.168.0.2 pc2
-4. /etc/host.conf：指定**客户机域名解析顺序**，下面为该文件内容
-   - order hosts , bind  #表示先查询本地hosts文件，如果没有结果，再尝试查找BIND dns服务器
-5. **/etc/resolv.conf** ：( 18上33）这是配置Linux系统DNS服务器的配置文件
+4. `/etc/host.conf`：指定**客户机域名解析顺序**，下面为该文件内容
+   - order hosts , bind  #表示先查询本地hosts文件，如果没有结果，再尝试查找BIND dns服务器(bind就是Linux下的DNS服务器)
+5. `/etc/resolv.conf`：( 18上33）这是配置Linux系统DNS服务器的配置文件，用来指定客户机域名搜索顺序和DNS服务器的地址
    - Seach test.edu.cn
    - nameserver 114.114.114.114  #首选DNS服务器
    - nameserver 8.8.8.8  #备用DNS服务器
 
 ## Linux网络接口配置
 
-[理解物理网卡、网卡接口、内核、IP等属性的关系]:https://cloud.tencent.com/developer/article/1662501
+[理解物理网卡、网卡接口、内核、IP等属性的关系](https://cloud.tencent.com/developer/article/1662501)
 
 引：**网络接口名称**就是系统内核为物理网卡取的名称，用户可以通过网卡接口名称识别网卡，但网卡接口名称是不可靠的，接口名称只是显示给用户看的，对于内核来说，内核是通过为该网卡接口分配的UUID属性来识别网卡的。内核和网卡交互时，内核需要根据网卡接口的配置信息做出决策。
 
@@ -71,8 +75,6 @@ ether 00:20:57:95:23:ce
 txqueuelen 1000 (Ethernet)
 ```
 
-
-
 ### route命令：配置路由
 
 #### route不带参数：查看本机的路由表
@@ -85,7 +87,7 @@ txqueuelen 1000 (Ethernet)
 
 [-net/-host]：-net表示一条子网路由，-host表示主机路由
 
-target：
+target：配置的目的网段或目的主机
 
 [netmask Nm]：子网掩码
 
@@ -116,4 +118,8 @@ route add -host target 192.168.168.119 gw 192.168.168.1    #这是一条主机�
 
 ### 例题
 
+![image-20230311151905771](./assets/image-20230311151905771.png)
+
 ![image-20230311150758487](./assets/image-20230311150758487.png)
+
+解析：启动则最后肯定有up，配置接口IP则肯定有ethxx
