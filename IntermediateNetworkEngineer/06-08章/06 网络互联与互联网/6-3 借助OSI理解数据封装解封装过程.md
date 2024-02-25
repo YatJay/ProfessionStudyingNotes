@@ -1,14 +1,14 @@
 # 6-3 借助OSI模型理解数据封装传输解封装过程
 
-![image-20230304161912407](./assets/image-20230304161912407.png)
+![image-20230304161912407](https://img.yatjay.top/md/image-20230304161912407.png)
 
 ## 封装
 
-![image-20230304162358868](./assets/image-20230304162358868.png)
+![image-20230304162358868](https://img.yatjay.top/md/image-20230304162358868.png)
 
 ## 解封装
 
-![image-20230304162435617](./assets/image-20230304162435617.png)
+![image-20230304162435617](https://img.yatjay.top/md/image-20230304162435617.png)
 
 ## 各个层传输单元的叫法
 
@@ -24,4 +24,4 @@
 
 ### 辅助理解封装
 
-![image-20230304162517285](./assets/image-20230304162517285.png)
+![image-20230304162517285](https://img.yatjay.top/md/image-20230304162517285.png)

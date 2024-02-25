@@ -1,11 +1,10 @@
 # 6-1 OSI七层模型
 
-## OSI网际互连
+## OSI网际互联
 
 ### OSI概念
 
 OSI(Open System Interconnect,开放系统互联参考模型)，是由**ISO(国际标准化组织）定义**的。它是个灵活的、稳健的和可互操作的模型，并不是协议，而是一个伟大的模型，常用来分析和设计网络体系结构。
-
 
 ### OSI模型的目的
 
@@ -17,7 +16,9 @@ OSI(Open System Interconnect,开放系统互联参考模型)，是由**ISO(国�
 
 ### 知识扩展
 
-|                                                           |                                                              |
+几个极易混淆的缩写
+
+| 英文                                                      | 说明                                                         |
 | --------------------------------------------------------- | ------------------------------------------------------------ |
 | **OSI** ( Open System Interconnect )                      | 开放系统互联参考模型                                         |
 | **ISO**( International Organization for Standardization ) | 国际标准化组织                                               |
@@ -26,14 +27,14 @@ OSI(Open System Interconnect,开放系统互联参考模型)，是由**ISO(国�
 
 #### 常见国际标准化组织
 
-|                                                   |                                                     |                                                              |
+| 中文名                                            | 英文名                                              | 说明                                                         |
 | ------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
 | 国际标准化组织(ISO)                               | （International Organization for Standardization)   | 标准化领域中的一个国际组织,，定义很多领域的国际标准          |
 | 电子电气工程师协会(IEEE)                          | (Institute of Electrical and Electronics Engineers) | 定义一些二层标准，如以太网                                   |
 | 美国国家标准局(ANSI)                              | (American National Standards Institute)             |                                                              |
-| 电子工业协会(EIA/TIA )                            | (Electronic Industries Association)                 |                                                              |
-| 国际电信联盟( ITU )                               | (International Telecommunication Union)             | 运营商相关标准制定                                           |
-| 国际互联网工程任务组/INTERNET工程任务委员会(IETF) | (The Internet Engineering Task Force)               | **网络层**的很多标准由其定义，**RFC文档**即由此机构定义如OSPF，很多人是思科的工程师 |
+| 电子工业协会(EIA/TIA )                            | (Electronic Industries Association)                 | 定义一些底层东西                                             |
+| 国际电信联盟( ITU )                               | (International Telecommunication Union)             | 运营商相关标准制定，如运营商级别的以太网、城域网技术标准     |
+| 国际互联网工程任务组/INTERNET工程任务委员会(IETF) | (The Internet Engineering Task Force)               | **网络层**的很多标准由其定义，**RFC文档**即由此机构定义，如OSPF，RFC1918当中定义了私有地址，很多人是思科的工程师 |
 
 ## OSI的优点
 
