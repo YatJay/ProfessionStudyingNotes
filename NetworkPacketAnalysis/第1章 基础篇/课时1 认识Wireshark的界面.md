@@ -156,10 +156,10 @@ Transmission Control Protocol, Src Port: 52711, Dst Port: 80, Seq: 1, Ack: 1, Le
 
 可见ACK标志位已经被设定，说明筛选条件生效
 
-![image-20231008232957462](./assets/image-20231008232957462.png)
+![image-20231008232957462](https://img.yatjay.top/md/image-20231008232957462.png)
 
 ### 保存频繁使用的筛选条件
 
 菜单栏——分析——显示筛选器——点击新建按钮——创建常用筛选条件并为筛选条件起一个名字——应用——保存
 
-![image-20231008233205090](./assets/image-20231008233205090.png)
+![image-20231008233205090](https://img.yatjay.top/md/image-20231008233205090.png)

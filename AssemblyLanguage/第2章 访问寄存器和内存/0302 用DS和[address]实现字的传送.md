@@ -56,13 +56,13 @@ mov ax, [0]   ;1000:0处的字型数据送入ax，即内存数据读取到寄存
 mov [0], cx   ;cx中的16位数据送到1000:0处，即寄存器数据写入到内存
 ```
 
-![image-20230903160907235](./assets/image-20230903160907235.png)
+![image-20230903160907235](https://img.yatjay.top/md/image-20230903160907235.png)
 
 ## 字的传送案例1
 
 已知内存状态如下图所示，执行如下指令，写出寄存器状态
 
-![image-20230903161044023](./assets/image-20230903161044023.png)
+![image-20230903161044023](https://img.yatjay.top/md/image-20230903161044023.png)
 
 ```assembly
 mov ax, 1000H
@@ -100,7 +100,7 @@ add cx, [2]
 
 已知内存状态如下图所示，执行如下指令，写出寄存器状态
 
-![image-20230903162216851](./assets/image-20230903162216851.png)
+![image-20230903162216851](https://img.yatjay.top/md/image-20230903162216851.png)
 
 ```assembly
 mov ax, 1000H
@@ -112,4 +112,4 @@ sub bx, [2]
 mov [2], bx
 ```
 
-![image-20230903162239961](./assets/image-20230903162239961.png)
+![image-20230903162239961](https://img.yatjay.top/md/image-20230903162239961.png)
