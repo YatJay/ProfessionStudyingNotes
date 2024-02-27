@@ -16,13 +16,13 @@ SSL/TLS在Web安全通信中被称为**HTTPS**，因此SSL和TLS可以看成一�
 
 2. HTTP + SSL就成为了HTTPS
 
-   ![image-20230307211829771](./assets/image-20230307211829771.png)
+   ![image-20230307211829771](https://img.yatjay.top/md/image-20230307211829771.png)
 
 #### 例题
 
-![image-20230307211925064](./assets/image-20230307211925064.png)
+![image-20230307211925064](https://img.yatjay.top/md/image-20230307211925064.png)
 
-![image-20230307211947487](./assets/image-20230307211947487.png)
+![image-20230307211947487](https://img.yatjay.top/md/image-20230307211947487.png)
 
 ## 应用层的安全协议——S-HTTP和PGP
 
@@ -40,7 +40,7 @@ S-HTTP**语法与HTTP一样，而报文头有所区别，进行了加密**
 
 ##### 例题
 
-![image-20230307212415063](./assets/image-20230307212415063.png)
+![image-20230307212415063](https://img.yatjay.top/md/image-20230307212415063.png)
 
 ### PGP（考试频率较高）
 
@@ -61,11 +61,11 @@ PGP (Pretty Good Privacy)是一个完整的电子邮件安全软件包
 
 #### 例题
 
-![image-20230307212821324](./assets/image-20230307212821324.png)
+![image-20230307212821324](https://img.yatjay.top/md/image-20230307212821324.png)
 
-![image-20230307212835358](./assets/image-20230307212835358.png)
+![image-20230307212835358](https://img.yatjay.top/md/image-20230307212835358.png)
 
-![image-20230307212859481](./assets/image-20230307212859481.png)
+![image-20230307212859481](https://img.yatjay.top/md/image-20230307212859481.png)
 
 ### S/MIME，SET和Kerberos认证（了解）
 
@@ -75,8 +75,8 @@ SET ( Secure Electronic Transation )安全的电子交易，用于保障**电子
 
 Kerberos是**用于进行身份认证**的安全协议，支持AAA：**认证、授权和审计**。
 
-![image-20230307220147663](./assets/image-20230307220147663.png)
+![image-20230307220147663](https://img.yatjay.top/md/image-20230307220147663.png)
 
 #### 例题
 
-![image-20230307220217317](./assets/image-20230307220217317.png)
+![image-20230307220217317](https://img.yatjay.top/md/image-20230307220217317.png)

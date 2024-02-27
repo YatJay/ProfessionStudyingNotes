@@ -25,7 +25,7 @@ lPSec功能分为三类:**认证头（(AH)、封装安全负荷(ESP)、 Internet
 
 **Internet密钥交换协议(IKE（Internet Key Exchange）)**:用于**生成和分发秘钥**，比如在ESP和AH中使用的密钥
 
-![image-20230307210811973](./assets/image-20230307210811973.png)
+![image-20230307210811973](https://img.yatjay.top/md/image-20230307210811973.png)
 
 ## IPSec的两种封装模式(知道AH在哪里插即可)
 
@@ -33,17 +33,17 @@ lPSec功能分为三类:**认证头（(AH)、封装安全负荷(ESP)、 Internet
 
 传输模式：在**原来的IP报文中**插入认证头，该认证头可以是AH、ESP、IKE，原来的IP报文格式不变
 
-![image-20230307210952294](./assets/image-20230307210952294.png)
+![image-20230307210952294](https://img.yatjay.top/md/image-20230307210952294.png)
 
 ### 隧道模式——原IP头前面插
 
 隧道模式：**原来的IP报文头不变**，在**原来的IP头前面插入**AH/ESP/IKE，再在其前面添加一个新的IP头
 
-![image-20230307210952294](./assets/image-20230307210952294.png)
+![image-20230307210952294](https://img.yatjay.top/md/image-20230307210952294.png)
 
 ### 例题
 
-![image-20230307211109893](./assets/image-20230307211109893.png)
+![image-20230307211109893](https://img.yatjay.top/md/image-20230307211109893.png)
 
 D选项解析：各层出于安全考虑而是用的VPN协议
 
