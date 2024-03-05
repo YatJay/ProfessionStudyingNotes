@@ -83,11 +83,11 @@ rm命令：删除文件
 
 ## 例题
 
-![image-20230311153753392](./assets/image-20230311153753392.png)
+![image-20230311153753392](https://img.yatjay.top/md/image-20230311153753392.png)
 
-![image-20230311153802939](./assets/image-20230311153802939.png)
+![image-20230311153802939](https://img.yatjay.top/md/image-20230311153802939.png)
 
-![image-20230311153821799](./assets/image-20230311153821799.png)
+![image-20230311153821799](https://img.yatjay.top/md/image-20230311153821799.png)
 
 # Linux用户和组管理
 
@@ -110,4 +110,4 @@ Linux系统中最重要的是超级用户，即根用户root UID=0
 
 2. **/etc/shadow**只有**超级用户root能读**的文件/etc/shadow,该文件包含了系统中的所有用户及其口令等相关信息，分成9个域:
 
-![image-20230311154327377](./assets/image-20230311154327377.png)
+![image-20230311154327377](https://img.yatjay.top/md/image-20230311154327377.png)

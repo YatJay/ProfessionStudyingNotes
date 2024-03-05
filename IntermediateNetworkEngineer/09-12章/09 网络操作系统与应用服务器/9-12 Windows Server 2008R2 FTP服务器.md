@@ -6,11 +6,11 @@ FTP端口：TCP 20（数据）21（控制）数据端口比控制端口小1
 
 添加FTP站点：开始→管理工具→IIS管理器→网站→添加FTP站点
 
-![image-20230924205532674](./assets/image-20230924205532674.png)
+![image-20230924205532674](https://img.yatjay.top/md/image-20230924205532674.png)
 
 ## FTP权限控制
 
-![image-20230924205556842](./assets/image-20230924205556842.png)
+![image-20230924205556842](https://img.yatjay.top/md/image-20230924205556842.png)
 
 ## FTP站点访问
 
@@ -26,9 +26,9 @@ FTP端口：TCP 20（数据）21（控制）数据端口比控制端口小1
 
 ## 例题
 
-![image-20230924205746134](./assets/image-20230924205746134.png)
+![image-20230924205746134](https://img.yatjay.top/md/image-20230924205746134.png)
 
-![image-20230924205808615](./assets/image-20230924205808615.png)
+![image-20230924205808615](https://img.yatjay.top/md/image-20230924205808615.png)
 
 ## Linux Apache服务器配置简介
 

@@ -12,7 +12,7 @@ llS (Internet lnformation Server)因特网信息服务器
 
 ## IIS编辑网站信息
 
-![image-20230924203027519](./assets/image-20230924203027519.png)
+![image-20230924203027519](https://img.yatjay.top/md/image-20230924203027519.png)
 
 区分一个网站的3种方式
 
@@ -24,7 +24,7 @@ llS (Internet lnformation Server)因特网信息服务器
 
 即新建网站后缺省的默认页面，优先访问`Default.htm`，若没有则按照下面默认文档列表依次往下进行访问
 
-![image-20230924203357181](./assets/image-20230924203357181.png)
+![image-20230924203357181](https://img.yatjay.top/md/image-20230924203357181.png)
 
 ## 网站安全配置（偶尔考）
 
@@ -34,18 +34,18 @@ IIS可以选择身份认证方式
 
 IIS也支持IP地址和域限制：即添加IP白名单或黑名单
 
-![image-20230924203531280](./assets/image-20230924203531280.png)
+![image-20230924203531280](https://img.yatjay.top/md/image-20230924203531280.png)
 
 ## 例题
 
-![image-20230924203747274](./assets/image-20230924203747274.png)
+![image-20230924203747274](https://img.yatjay.top/md/image-20230924203747274.png)
 
 解析：IIS不支持DNS搭建，DNS需要单独搭建，不依托于IIS
 
-![image-20230924203801258](./assets/image-20230924203801258.png)
+![image-20230924203801258](https://img.yatjay.top/md/image-20230924203801258.png)
 
 解析：IIS支持4种身份认证方式，如下图所示
 
-![image-20230924203905038](./assets/image-20230924203905038.png)
+![image-20230924203905038](https://img.yatjay.top/md/image-20230924203905038.png)
 
 **安全级别最高的是Windows身份验证**，可以做本地认证和域认证
