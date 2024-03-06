@@ -2,7 +2,7 @@
 
 本节实验课：如何搭建、配置IIS的Web服务
 
-下午题目4个题，其中一题靠本章节，最爱考察3D+1I即AD、DNS、DHCP和IIS
+下午题目4个题，其中一题考察本章节，最爱考察3D+1I即AD、DNS、DHCP和IIS
 
 IIS下最常见的2个服务就是Web和FTP
 

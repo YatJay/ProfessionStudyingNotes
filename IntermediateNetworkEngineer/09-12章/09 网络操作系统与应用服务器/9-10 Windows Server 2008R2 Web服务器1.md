@@ -2,13 +2,13 @@
 
 ## IIS简介
 
-IIS服务可以提供多种服务，其中最典型最常用的是Web服务和FTP服务
+- IIS服务可以提供多种服务，其中最典型最常用的是Web服务和FTP服务
 
-llS (Internet lnformation Server)因特网信息服务器
+- llS (Internet lnformation Server)因特网信息服务器
 
-可以构建www服务器、FTP服务器和SMTP服务器**【不能构建也没有POP3和IMAP】**
+- 可以构建www服务器、FTP服务器和SMTP(邮件)服务器**【不能构建也没有POP3和IMAP】**
 
-安装lIlS服务：开始→管理工具→服务器管理→角色→添加角色→web服务器(IS)
+- 安装lIlS服务：开始→管理工具→服务器管理→角色→添加角色→web服务器(IS)
 
 ## IIS编辑网站信息
 

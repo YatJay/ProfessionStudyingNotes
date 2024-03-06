@@ -4,25 +4,33 @@
 
 DHCP (Dynamic Host Configuration Protocol，动态主机配置协议)：即动态配置IP地址
 
-Linux系统DHCP服务配置文件为`/etc/dhhcpd.conf`
+Linux系统DHCP服务配置文件为`/etc/dhcpd.conf`
 
-### DHCP租约过程
+## DHCP租约过程
 
 即DHCP客户机动态获取IP地址的过程，**这4个都是广播包**
 
+①：客户机：[DHCPDISCOVER]谁是DHCP服务器？
+
+②：DHCP服务器：[DHCPOFFER]我就是DHCP服务器，在下面IP当中选一个
+
+③：客户机：[DHCPREQUEST]我选择这个IP地址
+
+④：DHCP服务器：[DHCPACK/DHCPNAK]确认/拒绝该客户机使用此IP地址
+
 ![image-20230924213151372](https://img.yatjay.top/md/image-20230924213151372.png)
 
-抓包分析DHCP过程
+抓包分析DHCP过程，注意往来通信的4个数据包的目的地址都是广播地址，4个包都是广播包
 
 ![image-20230924213431738](https://img.yatjay.top/md/image-20230924213431738.png)
 
 ## DHCP租期
 
-DHCP租约默认8天，当租期超过一半时(4天），进行续约。
+- DHCP租约默认8天，当租期超过一半时(4天），进行续约。
 
-续约完后还是8天
+- 续约完后还是8天
 
-不论何种原因，当我们客户端分配到IP为`169.254.0.0/16`，DHCP获取失败，该地址不能用于正常通信
+- 不论何种原因，当我们客户端分配到IP为`169.254.0.0/16`，说明DHCP获取失败，该地址不能用于正常通信
 
 ## DHCP中继
 
@@ -43,11 +51,11 @@ DHCP报文是广播包，不能穿透三层（即网络层，路由器层），�
 
 ### Windows Server DHCP配置
 
-#### 新建DHCP地址池
+#### 服务端新建DHCP地址池
 
 ![image-20230924214733253](https://img.yatjay.top/md/image-20230924214733253.png)
 
-#### 客户端DHCP
+#### 客户端DHCP获取IP地址
 
 ![image-20230924214854722](https://img.yatjay.top/md/image-20230924214854722.png)
 
@@ -57,7 +65,7 @@ DHCP报文是广播包，不能穿透三层（即网络层，路由器层），�
 
 - 释放DHCP获得的IP地址的命令为：`ipconfig /release`
 
-### Linux的DHCP配置
+### Linux的DHCP服务器配置
 
 使用`dhcpd.conf`的配置文件例子进行说明
 
@@ -86,9 +94,10 @@ host test1 { hardware ethernet 00:E0:4C:70:33:65;fixed-address 192.168.0.8;}
 [dhcp-ip-pool-vlan10]gateway-list 192.168.10.254   //指定网关地址
 [dhcp-ip-pool-vlan10]dns-list 8.8.8.8      //指定DNS地址
 [dhcp-ip-pool-vlan10]q
-[dhcplip pool vlan20//DHCP地址池vlan10
+[dhcp]ip pool vlan20        //为vlan10配置DHCP地址池
 [dhcp-ip-pool-vlan20]network 192.168.20.0 mask 24
-[dhcp-ip-pool-vlan20]gateway-list 192.168.20.254[dhcp-ip-pool-vlan20]dns-list 8.8.8.8
+[dhcp-ip-pool-vlan20]gateway-list 192.168.20.254
+[dhcp-ip-pool-vlan20]dns-list 8.8.8.8
 [dhcp-ip-pool-vlan20]q
 ```
 
@@ -99,6 +108,8 @@ host test1 { hardware ethernet 00:E0:4C:70:33:65;fixed-address 192.168.0.8;}
 解析：A、DHCP中继可以跨网段；B、一个网段内有多个DHCP服务器时，就能收到多个DHCPOffer
 
 ![image-20230924220002690](https://img.yatjay.top/md/image-20230924220002690.png)
+
+解析：分配到`169.254.x.x`说明DHCP服务挂了
 
 ## 举一反三：计算机网络中的6类特殊IP地址——记忆
 

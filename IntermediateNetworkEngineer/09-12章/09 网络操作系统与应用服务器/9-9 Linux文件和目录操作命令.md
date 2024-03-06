@@ -87,6 +87,8 @@ rm命令：删除文件
 
 ![image-20230311153802939](https://img.yatjay.top/md/image-20230311153802939.png)
 
+解析：locate命令用于查找某个文件，要使用 `locate` 搜索文件，只需在命令后输入你想要查找的文件名或路径。例如：`locate filename`
+
 ![image-20230311153821799](https://img.yatjay.top/md/image-20230311153821799.png)
 
 # Linux用户和组管理
