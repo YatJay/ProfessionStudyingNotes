@@ -34,23 +34,23 @@
 
 ### 实验目的
 
-![image-20231005170813944](./assets/image-20231005170813944.png)
+![image-20231005170813944](https://img.yatjay.top/md/image-20231005170813944.png)
 
 ### 实验过程
 
 按照上述拓扑搭建ENSP拓扑，交换机G0/0/1端口连接PC1，交换机G0/0/2端口连接PC2
 
-![image-20231005173358313](./assets/image-20231005173358313.png)
+![image-20231005173358313](https://img.yatjay.top/md/image-20231005173358313.png)
 
 配置三层IP地址、掩码、网关等内容如下图所示
 
 PC1
 
-![image-20231005172520615](./assets/image-20231005172520615.png)
+![image-20231005172520615](https://img.yatjay.top/md/image-20231005172520615.png)
 
 PC2
 
-![image-20231005173741108](./assets/image-20231005173741108.png)
+![image-20231005173741108](https://img.yatjay.top/md/image-20231005173741108.png)
 
 测试PC1和PC2能否ping通：不在同一个网段（不在一个子网下），必定无法ping通
 
@@ -60,7 +60,7 @@ PC2
 [SW1] vlan batch 10 20  #batch关键字可批量创建VLAN
 ```
 
-![image-20231005173013195](./assets/image-20231005173013195.png)
+![image-20231005173013195](https://img.yatjay.top/md/image-20231005173013195.png)
 
 将GE0/0/1配置为access类型，并加入vlan10
 
@@ -72,7 +72,7 @@ PC2
 [SW1-gigabitEthernet0/0/1] port default vlan 10
 ```
 
-![image-20231005173601954](./assets/image-20231005173601954.png)
+![image-20231005173601954](https://img.yatjay.top/md/image-20231005173601954.png)
 
 将GE0/0/2配置为access类型，并加入vlan20
 
@@ -84,7 +84,7 @@ PC2
 [SW1-gigabitEthernet0/0/2] port default vlan 20
 ```
 
-![image-20231005175339485](./assets/image-20231005175339485.png)
+![image-20231005175339485](https://img.yatjay.top/md/image-20231005175339485.png)
 
 ## Trunk基本配置命令
 
@@ -112,7 +112,7 @@ PC2
 
 ### 实验目的
 
-![image-20231005171030008](./assets/image-20231005171030008.png)
+![image-20231005171030008](https://img.yatjay.top/md/image-20231005171030008.png)
 
 ### 实验过程
 
