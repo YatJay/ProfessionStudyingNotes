@@ -8,7 +8,7 @@
 
 Ad Hoc是拉丁语，具有”即兴，临时”的意思
 
-![image-20230925225506475](./assets/image-20230925225506475.png)
+![image-20230925225506475](https://img.yatjay.top/md/image-20230925225506475.png)
 
 ## MANET网络的特点（偶尔考选择）
 
@@ -19,8 +19,8 @@ Ad Hoc是拉丁语，具有”即兴，临时”的意思
 
 ## 例题
 
-![image-20230925225820324](./assets/image-20230925225820324.png)
+![image-20230925225820324](https://img.yatjay.top/md/image-20230925225820324.png)
 
-![image-20230925225841042](./assets/image-20230925225841042.png)
+![image-20230925225841042](https://img.yatjay.top/md/image-20230925225841042.png)
 
 解析：看到DV——Distance Vector距离矢量

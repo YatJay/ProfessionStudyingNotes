@@ -13,17 +13,17 @@
 
 ## 例题
 
-![image-20230925230805454](./assets/image-20230925230805454.png)
+![image-20230925230805454](https://img.yatjay.top/md/image-20230925230805454.png)
 
 解析：如果B错的更家离谱，选择D也可用
 
-![image-20230925230813024](./assets/image-20230925230813024.png)
+![image-20230925230813024](https://img.yatjay.top/md/image-20230925230813024.png)
 
 解析：答案给错，应选择D选项
 
-![image-20230925230818799](./assets/image-20230925230818799.png)
+![image-20230925230818799](https://img.yatjay.top/md/image-20230925230818799.png)
 
-![image-20230925230829187](./assets/image-20230925230829187.png)
+![image-20230925230829187](https://img.yatjay.top/md/image-20230925230829187.png)
 
 # 章节总结
 
