@@ -6,7 +6,7 @@
 
 安全套接层(Secure Socket Layer，SSL)是Netscape于1994年开发的**传输层(第4层)安全协议**，面向用于实现Web安全通信。
 
-1999年，IETF基于SSL3.0版本，制定了传输层安全标准TLS ( Transport Layer Security)
+1999年，IETF基于SSL3.0版本，制定了传输层安全标准TLS (Transport Layer Security，安全传输层协议)
 
 SSL/TLS在Web安全通信中被称为**HTTPS**，因此SSL和TLS可以看成一个东西。
 
