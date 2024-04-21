@@ -12,7 +12,7 @@
 
 组的名字都是带s的
 
-![image-20230309205633280](https://img.yatjay.top/md/image-20230309205633280.png)
+![image-20230309205633280](C:\Users\ASUS\Desktop\image-20230309205633280.png)
 
 ![image-20230924161141120](https://img.yatjay.top/md/image-20230924161141120.png)
 
