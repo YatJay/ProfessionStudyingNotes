@@ -412,7 +412,7 @@ DHCP工作示意图如下
 [Huawei-ip-pool-2] lease { day day [ hour hour [ minute minute ]] | unlimited }
 ```
 
-11. 使能接口的DHCP服务器功能，使用全局地址池。这个是dhcp选择全局地址池，这个你要定义dhcp pool，具体的网关啥的需要你自己先配置好。
+11. 使能接口的DHCP服务器功能，使用全局地址池。实际和考试使用较多，这个是dhcp选择全局地址池，这个你要定义dhcp pool，具体的网关啥的需要你自己先配置好。
 
 ```cmd
 [Huawei-Gigabitthernet0/0/0]dhcp select global
