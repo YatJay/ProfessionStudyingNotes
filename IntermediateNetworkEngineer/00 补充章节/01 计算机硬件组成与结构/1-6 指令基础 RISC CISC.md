@@ -22,7 +22,7 @@
 
 **精简指令集（RISC，Reduced Instruction Set Computer）**：对指令数目和寻址方式做精简，指令的指令周期相同，采用流水线技术，指令并行执行程度更好，这就是精简指令集计算机(RISC)。该指令集由IBM提出，如今一些高端的小型机使用该精简指令集，效率较高但兼容性差
 
-![image-20240330202208005](https://img.yatjay.top/md/image-20240330202208005.png)
+![image-20240330202208005](C:\Users\ASUS\Desktop\image-20240330202208005.png)
 
 计算机执行程序的时间P由三方面因素决定：
 
