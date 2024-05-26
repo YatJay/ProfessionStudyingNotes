@@ -260,11 +260,11 @@ deny就是与这条规则相对应的处理动作。
 
 ```cmd
 [Router] interface GigabitEthernet 0/0/1
-[Router-GigabitEthernet0/0/1] traffic-filterinbound acl 3001
+[Router-GigabitEthernet0/0/1] traffic-filter inbound acl 3001
 [Router-GigabitEthernet0/0/1] quit
 
 [Router] interface GigabitEthernet 0/0/2
-[Router-GigabitEthernet0/0/2] traffic-filterinbound acl 3002
+[Router-GigabitEthernet0/0/2] traffic-filter inbound acl 3002
 [Router-GigabitEthernet0/o/2] quit
 ```
 

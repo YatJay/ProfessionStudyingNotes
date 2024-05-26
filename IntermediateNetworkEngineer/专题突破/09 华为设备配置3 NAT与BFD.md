@@ -76,7 +76,7 @@ NAT的典型应用场景：在私有网络内部（园区、家庭）使用私�
 
 动态NAT：静态NAT严格地一对一进行地址映射，这就导致即便内网主机长时间离线或者不发送数据时，与之对应的公有地址也处于使用状态。为了避免地址浪费，动态NAT提出了地址池的概念：所有可用的公有地址组成地址池。
 
-当内部主机访问外部网络时临时分配一个地址池中未使用的地址，并将该地址标记为"InUse"。当该主机不再访问外部网络时回收分配的地址，重新标记为“Not Use"。
+当内部主机访问外部网络时临时分配一个地址池中未使用的地址，并将该地址标记为"In Use"。当该主机不再访问外部网络时回收分配的地址，重新标记为“Not Use"。
 
 ![image-20240509205809771](https://img.yatjay.top/md/image-20240509205809771.png)
 
@@ -122,7 +122,7 @@ NAT的典型应用场景：在私有网络内部（园区、家庭）使用私�
 ```cmd
 [R1]nat address-group 1 122.1.2.1 122.1.2.3
 [R1]acl 2000
-[R1-acl-basic-2000]rule 5 permit source192.168.1.0  0.0.0.255
+[R1-acl-basic-2000]rule 5 permit source 192.168.1.0  0.0.0.255
 [R1-acl-basic-2000]quit
 [R1]interface GigabitEthernet0/0/1
 [R1-GigabitEthernet0/0/1]nat outbound 2000 address-group 1 no-pat //意思是将匹配acl 2000的IP地址转换为nat地址池1中的公网地址，且只进行一对一的IP地址转换，不进行端口转换NAPT
@@ -161,7 +161,7 @@ NAPT（Network Address and Port Translation，网络地址端口转换）：从�
 ```cmd
 [R1]nat address-group 1 122.1.2.1 122.1.2.1    //NAT地址池仅定义了1个公网IP
 [R1]acl 2000
-[R1-acl-basic-2000]rule5permitsource192.168.1.0 0.0.0.255
+[R1-acl-basic-2000]rule 5 permit source 192.168.1.0 0.0.0.255
 [R1-acl-basic-2000]quit
 [R1]interface GigabitEthernet0/0/1
 [R1-GigabitEthernet0/0/1]nat outbound 2000 address-group 1   //此条命令最后不加no-pat，表示使用NAPT转换
