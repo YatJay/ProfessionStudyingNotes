@@ -30,7 +30,7 @@
 
 - ICMP Echo消息常用于诊断源和目的地之间的网络连通性，同时还可以提供其他信息，如报文往返时间等。
 
-- ping命令的实质就是发送ICMP的Echo Request消息，目的IP收到后发送Echo Reply回复报文
+- ping命令的实质就是发送ICMP的**Echo Request**消息，目的IP收到后发送**Echo Reply**回复报文
 
 ![image-20240309154401043](https://img.yatjay.top/md/image-20240309154401043.png)
 

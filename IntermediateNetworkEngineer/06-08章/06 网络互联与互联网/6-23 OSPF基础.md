@@ -12,8 +12,6 @@
   - 内部网络域 Internal10，
   - 外部网络域 External150;
 
-
-
 - 路由器之间交互的是链路状态信息，而不是直接交互路由
 
 - 每台OSPF路由器都知晓网络拓扑结构，采用SPF算法计算达到目的地的最短路径
@@ -31,11 +29,11 @@
 
 ### RouterID
 
-OSPF使用RouterID作为路由器的标识，通常使用环回接口作为RouterID
+OSPF使用RouterID作为路由器的标识，通常使用环回接口作为RouterID（环回口比较稳定）
 
 ![image-20240317201823916](https://img.yatjay.top/md/image-20240317201823916.png)
 
-- Router Identifier，路由器标示符，,用于在一个OSPF域中唯一地标识一台路由器，每台运行OSPF的路由器具备Router-ID。
+- Router Identifier，路由器标示符，用于在一个OSPF域中唯一地标识一台路由器，每台运行OSPF的路由器具备Router-ID。
 - 相同OSPF域内，禁止出现两台路由器有相同RouterID。
 - OSPF Router-ID可以通过手工配置的方式，或使用自动获取的方式。自动选取的机制是：
   - 若路由器存在loopback接口，则选最大的loopback接口IP地址
@@ -47,12 +45,12 @@ OSPF使用RouterID作为路由器的标识，通常使用环回接口作为Route
 ### OSPF Cost
 
 - OSPF使用Cost“开销”作为路由度量值，**依据是接口的带宽**。
-- OSPF接口cost = 100M÷接口带宽，如10M接口的cost = 10。其中100M为OSPF参考带宽(reference-bandwidth)，可修改
+- OSPF接口cost = 100M÷接口带宽，如10M接口的cost = 10。其中将100M为OSPF参考带宽(reference-bandwidth)即前面式子中的被除数，可修改
 - 每一个激活OSPF的接口都有一个cost值。
 - 一条OSPF路由的cost由该路由从起点一路到达本地的所有**入接口cost值的总和**。如下图所示，假设1.1.1.0/24网络中有一个IP向R3右侧直连网络中某个IP发送数据，则这条OSPF路由的开销为所有入接口开销值之和即1 + 50 + 1 = 52。下图黄色标签即
-  - 1.1.1.0/24网络中IP到达路由器R1的右侧直连网络，其OSPF路由开销为1
-  - 1.1.1.0/24网络中IP到达路由器R2的右侧直连网络，其OSPF路由开销为51
-  - 1.1.1.0/24网络中IP到达路由器R3的右侧直连网络，其OSPF路由开销为52
+  - 1.1.1.0/24网络中IP到达路由器R1的其他直连网络，其OSPF路由开销为1
+  - 1.1.1.0/24网络中IP到达路由器R2的右/上/下侧直连网络，其OSPF路由开销为51
+  - 1.1.1.0/24网络中IP到达路由器R3的右/上/下侧直连网络，其OSPF路由开销为52
 
 ![image-20240317202358394](https://img.yatjay.top/md/image-20240317202358394.png)
 
