@@ -19,7 +19,7 @@ lPSec功能分为三类：**认证头(AH)、封装安全负荷(ESP)、 Internet�
 
 这三类分别提供以下功能：
 
-- **认证头（AH（Authentication Header）)**：**提供数据完整性和数据源认证**，但**不提供数据保密**服务，使用的算法是**哈希如MD5、SHA**
+- **认证头（AH（Authentication Header）)**：**提供数据完整性和数据源认证**，但**不提供数据保密**服务，使用的算法是**哈希**如MD5、SHA
 
 - **封装安全负荷(ESP（Encapsulating Security Payload）)**：**提供数据加密功能**，加密算法有DES、3DES、AES等
 
@@ -59,3 +59,10 @@ D选项解析：IPSec是网络层的功能
 - 四层VPN协议：SSL
 
 [SSL/TSL到底是属于哪一层的协议？](https://www.jianshu.com/p/5ee027c51af0)
+
+## 本节小结
+
+本节只需掌握以下2个知识点：
+
+- IPSec的3类功能：认证头(AH)、封装安全负荷(ESP)、 Internet密钥交换协议(IKE)
+- IPSec的2种封装模式：传输模式、隧道模式

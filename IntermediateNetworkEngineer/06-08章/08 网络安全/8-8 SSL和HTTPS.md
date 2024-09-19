@@ -4,11 +4,11 @@
 
 ### SSL 安全套接层
 
-安全套接层(Secure Socket Layer，SSL)是Netscape于1994年开发的**传输层(第4层)安全协议**，面向用于实现Web安全通信。
+安全套接层(Secure Socket Layer，SSL)是Netscape(网景)于1994年开发的**传输层(第4层)安全协议**，面向用于实现Web安全通信。
 
 1999年，IETF基于SSL3.0版本，制定了传输层安全标准TLS (Transport Layer Security，安全传输层协议)
 
-SSL/TLS在Web安全通信中被称为**HTTPS**，因此SSL和TLS可以看成一个东西。
+SSL/TLS在Web安全通信中被称为**HTTPS**，因此**SSL和TLS可以看成一个东西**。
 
 记忆以下两个点↓
 
@@ -34,7 +34,7 @@ SSL/TLS在Web安全通信中被称为**HTTPS**，因此SSL和TLS可以看成一�
 
 - 重新开发的思路：HTTP重新开发协议，就成为S-HTTP
 
-S-HTTP安全的超文本传输协议( Security HTTP)
+S-HTTP安全的超文本传输协议(Security HTTP)
 
 S-HTTP**语法与HTTP一样，而报文头有所区别，进行了加密**
 
@@ -64,7 +64,7 @@ PGP使用的认证、加密和完整性验证算法：
 
 - 支持多平台(Windows，Linux，MacOS)上免费使用，得到许多厂商支持
 
-- 基于比较安全的算法（(RSA，IDEA，MD5)
+- 基于比较安全的算法(RSA，IDEA，MD5)
 
 - 既可以加密文件和电子邮件，也可以用于个人通信，应用集成PGP，现在已经集成到很多软件当中去了
 
@@ -74,11 +74,13 @@ PGP使用的认证、加密和完整性验证算法：
 
 ![image-20230307212835358](https://img.yatjay.top/md/image-20230307212835358.png)
 
+注意：目前实际上PGP是支持邮件压缩的
+
 ![image-20230307212859481](https://img.yatjay.top/md/image-20230307212859481.png)
 
 ### S/MIME，SET和Kerberos认证（了解）
 
-**S/MIME** ( Security/Multipurpose Internet Mail Extensions )提供**电子邮件**安全服务，与PGP功能类似
+**S/MIME** ( Security/Multipurpose Internet Mail Extensions )提供**电子邮件**安全服务，与PGP功能类似，且相比PGP，S/MIME支持多媒体
 
 **SET** ( Secure Electronic Transation )安全的电子交易，用于保障**电子商务**安全
 
