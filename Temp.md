@@ -20,10 +20,3 @@
 
 
 
-ccccccccccccccccccccccccccccccccccccccccccccccc
-
-ddddddddddddddddddddddddddddddddddddd
-
-
-
-eeeeeeeeeeeeeeeee
