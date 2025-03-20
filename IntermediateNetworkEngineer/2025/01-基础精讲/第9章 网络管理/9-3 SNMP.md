@@ -6,7 +6,7 @@ SNMP为应用层协议，通过<font color="red">UDP</font>承载端口**161和1
 
 <font color="red">不可靠，但效率高</font>，网络管理不会太多增加网络负载。
 
-#### SNMP协议的操作－2个端口
+#### SNMP协议的操作－2个服务与2个端口
 
 ![image-20250318221623894](https://img.yatjay.top/md/20250318221623933.png)
 
