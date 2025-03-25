@@ -90,7 +90,7 @@
 | ---- | ------------------------------------------ | ------------------------------------------------------------ |
 | 1    | 创建全局地址池                             | `[Huawei] ip pool ip-pool-name`                              |
 | 2    | 配置全局地址池可动态分配的IP地址范围       | `[Huawei-ip-pool-2] network ip-address [ mask { mask | mask-length } ]` |
-| 3    | 配置全局地址池中不参与自动分配的IP地址范围 | `[Huawei-ip-pool-2] dhcp server excluded-ip-address start-ip-address [ end-ip-address ]` |
+| 3    | 配置全局地址池中不参与自动分配的IP地址范围 | `[Huawei-ip-pool-2] excluded-ip-address start-ip-address [ end-ip-address ]` |
 | 4    | 配置DHCP客户端的网关地址                   | `[Huawei-ip-pool-2] gateway-list ip-address`                 |
 | 5    | 配置DHCP客户端使用的DNS服务器的IP地址      | `[Huawei-ip-pool-2] dns-list ip-address`                     |
 | 6    | 配置IP地址租期                             | `[Huawei-ip-pool-2] lease { day day [ hour hour [ minute minute ] ] | unlimited }` |
