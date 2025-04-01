@@ -226,7 +226,7 @@ EasyIP：实现原理和NAPT相同，同时转换IP地址、传输层端口，�
 [R1-GigabitEthernet0/0/1] nat outbound 2000
 ```
 
-### NAT Server
+### NAT Server/端口映射
 
 #### NAT Server使用场景
 
@@ -274,17 +274,3 @@ EasyIP：实现原理和NAPT相同，同时转换IP地址、传输层端口，�
 - 静态NAT提供了一对一映射，支持双向互访。
 - 动态NAT、NAPT、EaSy IP为私网主机访问公网提供源地址转换。
 - NATServer实现了内网主机对公网提供服务。
-
-
-
-
-
-
-
-
-
-
-
-
-
-### NAT Server
