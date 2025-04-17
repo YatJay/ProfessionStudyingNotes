@@ -33,7 +33,7 @@
                 <interface sztype="Ethernet" interfacename="GE" count="24" />
             </slot>
         </dev>
-        <dev id="207A5137-FB34-44a9-8CA3-421562592616" name="Server1" poe="0" model="Server" settings="-domain 0 -eth 54-89-98-1B-23-ED -ipaddr 0.0.0.0 -ipmask 255.255.255.0 -gateway 0.0.0.0 -ipv6addr 2000::2 -ipv6gateway 2000::1 -prefixlen 64 -ipv4dns 0.0.0.0 -ipv6dns 3000::1 -dnslist NULL" system_mac="54-89-98-1B-23-ED" com_port="0" bootmode="1" cx="973.000000" cy="673.000000" edit_left="1000" edit_top="727">
+        <dev id="207A5137-FB34-44a9-8CA3-421562592616" name="Server1" poe="0" model="Server" settings="-domain 0 -eth 54-89-98-1B-23-ED -ipaddr 0.0.0.0 -ipmask 255.255.255.0 -gateway 0.0.0.0 -ipv6addr 2000::2 -ipv6gateway 2000::1 -prefixlen 64 -ipv4dns 0.0.0.0 -ipv6dns 3000::1 -dnslist NULL" system_mac="54-89-98-5A-6C-7B" com_port="0" bootmode="1" cx="973.000000" cy="673.000000" edit_left="1000" edit_top="727">
             <slot number="slot17" isMainBoard="1">
                 <interface sztype="Ethernet" interfacename="Ethernet" count="1" />
             </slot>
