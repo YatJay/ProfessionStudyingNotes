@@ -6,7 +6,7 @@
 
 ![image-20250226193511143](https://img.yatjay.top/md/20250226193511176.png)
 
-### ARP协议工作过程
+### ARP协议工作过程(5步)
 
 例如，主机A要向主机C发送数据
 
@@ -14,7 +14,7 @@
 
 ![image-20250226193658223](https://img.yatjay.top/md/20250226193658254.png)
 
-#### 查询本地ARP缓存
+#### 查本地：查询本地ARP缓存
 
 查看主机A的ARP缓存`arp -a`，发现主机A的ARP缓存中没有主机C的MAC地址
 
@@ -28,9 +28,9 @@
 
 ![image-20250226194512131](https://img.yatjay.top/md/20250226194512172.png)
 
-#### ARP请求
+#### 广播：ARP请求
 
-若本地没有所需ARP缓存，需要发送ARP请求(广播)
+若本地没有所需ARP缓存，需要广播发送ARP请求
 
 ARP请求**报文内容**如下：
 
@@ -47,7 +47,7 @@ ARP请求报文被直接封装在以太网帧内，其中以太网帧的字段�
 
 ![image-20250226194554296](https://img.yatjay.top/md/20250226194554339.png)
 
-#### 其他主机更新ARP缓存
+#### 其他更新(学习)：其他主机更新ARP缓存
 
 其他主机收到ARP请求报文后，首先更新自己的ARP缓存
 
@@ -55,7 +55,7 @@ ARP请求报文被直接封装在以太网帧内，其中以太网帧的字段�
 
 ![image-20250226195441008](https://img.yatjay.top/md/20250226195441045.png)
 
-#### 其他主机ARP响应
+#### 回复：其他主机ARP响应
 
 主机B在更新ARP缓存之后，发现所请求的目的IP不是自己，丢弃该ARP请求报文
 
@@ -74,13 +74,13 @@ ARP的响应报文被直接封装在以太网帧内，其中以太网帧的字�
 
 ![image-20250226195515131](https://img.yatjay.top/md/20250226195515162.png)
 
-#### 本机更新ARP缓存
+#### 本机更新：本机更新ARP缓存
 
 主机A收到ARP响应报文后即更新自己的ARP缓存，类型字段为动态Dynamic
 
 ![image-20250226195537477](https://img.yatjay.top/md/20250226195537517.png)
 
-### ARP地址解析过程概述
+### ARP协议工作过程概述
 
 ![image-20250226200242164](https://img.yatjay.top/md/20250226200242204.png)
 
@@ -120,6 +120,183 @@ PC1和PC2在同一网段，但网关设备却在不同网段，如果PC1 ping PC
 如下图所示PC1和PC2均在172.16.0.0/16网段，而作为网关地址的Switch，其一接口在172.16.1.0/24，另一接口在172.16.2.1/24网段。当PC1去ping PC2时，网关会认为PC1和PC2在同一网段，同一个网段通信不需要经过网关，于是不处理该请求。实际上，由于Switch两个接口分别在2个网段，相当于PC1和PC2中间隔了一个网络，因此需要Swich进行转发。此时，需要在网关设备上开启代理ARP功能，网关设备会以自己的MAC地址代为应答
 
 ![image-20250226200456382](https://img.yatjay.top/md/20250226200456412.png)
+
+### ARP泛洪攻击
+
+#### 影响
+
+![image-20250423223357345](https://img.yatjay.top/md/20250423223357381.png)
+
+用户通过Switch A和Switch B接入到Gateway访问Internet。当网络中出现过多的ARP报文时:
+
+1. 会导致<font color="red">网关设备CPU负载加重</font>，影响设备正常处理用户的其它业务。
+2. 过多的ARP报文会<font color="red">占用大量的网络带宽</font>，引起网络堵塞，从而影响整个网络通信的正常运行。
+3. <font color="red">耗尽网关设备ARP表项</font>，不能为正常用户提供服务。
+
+#### 现象
+1. 交换机CPU占有率较高，正常用户不能学习ARP甚至无法上网。
+2. Ping不通。
+3. 网络设备不能管理。
+
+#### 攻击溯源分析
+
+由于终端中毒频繁发送大量ARP报文——<font color="red">中毒</font>：特征是中毒设备伪造了大量随机MAC地址
+
+下挂网络成环产生大量的ARP报文——<font color="red">环路</font>：特征是同一个MAC地址的数据帧引起二层环路，进而导致交换机MAC地址表震荡
+
+#### 解决方法
+
+1、<font color="red">在接口下配置ARP表项限制</font>。没备支持接口下的ARP表项限制，如果接口已经学习到的ARP表项数目超过限制值，系统不再学习新的ARP表项，但不会清除已经学习到的ARP表项，会提示用户删除超出的ARP表项。
+
+```cmd
+<HUAWEI> system-view
+[HUAWEl] interface gigabitethernet 1/0/1
+[HUAWEl-GigabitEthernet1/0/1] arp-limit vlan 10 maximum 20 //该接口下VLAN10只能学20个表项
+```
+
+2、<font color="red">配置针对源IP地址的ARP报文速率抑制的功能</font>。在一段时间内，如果设备收到某一源IP地址的ARP报文数目超过设定阈值，则不处理超出阈值部分的ARP请求报文。
+
+```cmd
+<HUAWEI> system-view
+[HUAWEl] arp speed-limit source-ip 10.0.0.1 maximum 50  //对ARP报文进行时间戳抑制的抑制速率为
+50pps，即每秒处理50个ARP报文。
+```
+
+3、根据排查出的攻击源MAC配置<font color="red">黑名单过滤掉攻击源发出的ARP报文</font>，注意配置的是二层ACL
+
+```cmd
+[HUAWEl] acl 4444
+[HUAWEl-acl-L2-4444] rule permit I2-protocol arp source-mac 0-0-1 vlan-id 193
+[HUAWEl-acl-L2-4444] quit
+[HUAWEl] cpu-defend policy policy1
+[HUAWEl-cpu-defend-policy-policy1] blacklist 1 acl 4444
+[HUAWEl-cpu-defend-policy-policy1] quit
+```
+
+接下来应用防攻击策略policy1，关于防攻击策略的应用：
+
+```cmd
+<HUAWEI> system-view
+[HUAWEl] cpu-defend-policy policy1
+[HUAWEI] quit
+```
+
+4、如果上述配置无法解决，比如源MAC变化或源IP变化的ARP攻击源来自某台接入设备下挂用户，在接入侧交换机上配置流策略限速，不让该接入侧设备下的用户影响整个网络。
+
+```cmd
+[HUAWEl] acl 4445
+[HUAWEl-acl-L2-4445] rule permit I2-protocol arp
+[HUAWEI-acl-L2-4445] quit
+[HUAWEl] traffic classifier policy1
+[HUAWEl-classifier-policy1] if-match acl 4445
+[HUAWEI-classifier-policy1] quit
+[HUAWEl] traffic behavior policy1
+[HUAWEl-behavior-policy1] car cir 32 //保证ARP平均速率只能32kbit/s
+[HUAWEl-behavior-policy1] quit
+[HUAWEl] traffic policy policy1 
+[HUAWEl-trafficpolicy-policy1] classifier policy1 behavior policyl
+[HUAWEl-trafficpolicy-policy1] quit
+[HUAWEl] interface GigabitEthernet 1/0/1
+[HUAWEl-GigabitEthernet1/0/1] traffic-policy policy1 inbound 
+```
+
+### ARP欺骗攻击
+
+![image-20250423224306814](https://img.yatjay.top/md/20250423224306865.png)
+
+UserA、UserB、UserC上线之后，通过相互之间交互ARP报文，User A、User B、User C和Gateway上都会创建相应的ARP表项。
+
+此时，如果有攻击者Attacker通过在广播域内发送伪造的ARP报文，篡改Gateway或者User A、User B、UserC上的ARP表项，Attacker可以轻而易举地窃取User A、User B、User C的信息或者阻碍UserA、UserB、UserC正常访问网络。
+
+比如：Attacker冒充网关给User A、User B、User C交互假的MAC地址
+
+#### 现象描述
+
+局域网内用户<font color="red">时通时断</font>，无法正常上网。网络设备会经常<font color="red">脱管</font>，网关设备会打印大量<font color="red">地址冲突</font>的告警。
+#### 原因分析
+
+1. 终端中毒。
+2. 攻击者将主机地址设为网关地址。
+
+#### 解决方案
+
+| 方法                                              | 原理                                                         | 优点                                                         | 缺点                                                         |
+| ------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| IP-MAC地址绑定                                    | 将设备的IP地址与MAC地址进行静态绑定，形成一种固定的关联关系。这种绑定可以防止未经授权的设备使用特定的IP地址，并在网络中起到防范ARP欺骗攻击的作用 |                                                              | 适合小规模场景或安全性要求较高场景                           |
+| <font color="red">配置DAI功能</font>即动态ARP检测 | 在DHCP分配IP地址是，记录分配的IP地址及关联的MAC地址，相当于动态的IP-MAC绑定 | 对ARP报文基于绑定表做合法性检查，非法的报文不会学习ARP，也会丢弃。建议在接入设备部署 | 需要将报文上送到CPU处理，会消耗一定的CPU资源，需要跟DHCP SNOOPING一起使用。 |
+| <font color="red">配置网关保护功能</font>         |                                                              | 对仿冒网关的ARP报文直接丢弃，不会转发到其他设备或者网关      | 占用一定的ACL资源，需要在接入设备部署                        |
+| 配置黑名单                                        |                                                              | 基于黑名单丢弃上送CPU的报文                                  | 需先查到攻击源                                               |
+| 配置黑洞MAC                                       |                                                              | 丢弃该攻击源发的所有报文，包括转发的报文                     | 需先查到攻击源                                               |
+| 配置防网关冲突攻击功能                            |                                                              | 收到具有相同源MAC地址的报文直接丢弃                          | 需本设备做网关                                               |
+
+##### 解决方案1
+
+方法一：在交换机上配置黑名单过滤攻击源的源MAC地址。
+
+```cmd
+[HUAWEIl] acl 4444
+[HUAWEl-acl-L2-4444] rule permit I2-protocol arp source-mac 1-1-1
+[HUAWEI-acl-L2-4444] quit
+[HUAWEl] cpu-defend policy policy1
+[HUAWEl-cpu-defend-policy-policy1] blacklist 1 acl 4444
+```
+
+接下来应用防攻击策略policy1，关于防攻击策略的应用。
+
+##### 解决方案2
+
+方法二：更严厉的惩罚措施可以将攻击者的MAC配置成黑洞MAC，彻底不让该攻击者上网。
+
+```cmd
+[HUAWEl] mac-address blackhole 1-1-1 vlan3
+```
+
+##### 解决方案3
+
+方法三：在交换机上配置防网关冲突功能（该功能要求交换机必须做网关），当设备收到以下ARP报文，认为是攻击，会丢弃。
+
+1. ARP报文的源IP地址与报文入接口对应的VLANIF接口的IP地址相同
+
+2. ARP报文的源IP地址是入接口的虚拟IP地址，但ARP报文源MAC地址不是VRRP虚MAC
+
+   ```cmd
+   [HUAWEl]  arp anti-attack gateway-duplicate enable
+   ```
+
+##### 解决方案4
+
+动态ARP检测，是线网中最常用的一种方法
+
+方法四：在接入交换机上配置DAI功能（也可以在网关设备上做，但是越靠近用户侧防攻击的效果越好），<font color="red">DAI会将ARP报文上送CPU跟绑定表进行比较，非法的ARP报文直接丢弃</font>，合法的ARP报文才会转发。对于动态用户需要配置dhcp snooping功能，**对于静态用户，需要配置静态绑定表**。
+
+```cmd
+[HUAWEI] dhcp enable
+[HUAWEl] dhcp snooping enable//全局使能dhcp snooping 功能
+[HUAWEl] interface gigabitethernet 0/0/1
+[HUAWEI-GigabitEthernet0/0/1] dhcp snooping enable
+[HUAWEl-GigabitEthernet0/0/1] arp anti-attack check user-bind enable//用户侧接口使能dhcp snooping以及DAI功能
+[HUAWEl] interface gigabitethernet 0/0/24
+[HUAWEI-GigabitEthernet0/0/24]dhcp snooping trusted//网络侧端口配置成信任状态
+```
+
+##### 解决方案5
+
+方法五：在接入交换机上<font color="red">配置网关保护功能</font>。需要注意的是在连网络侧的端口配置保护网关IP地址。类似DHCP Snoopying避免DHCP响应被伪造
+
+```cmd
+[HUAWEl]  interface gigabitethernet 0/0/24
+[HUAWEI-GigabitEthernet0/0/24] arp trust source 10.10.10.1//网络侧端口保护网关地址10.10.10.1，老版本的命令行为arp filter source，意思是在只有从0/0/24接口回复的，源地址为10.10.10.1的报文才是可信的
+```
+
+#### 例题
+
+![image-20250423230352594](https://img.yatjay.top/md/20250423230352651.png)
+
+解析：两次查看ARP表，发现192.168.5.1的MAC地址变化，即网关的MAC地址在跳，可以判断是ARP欺骗攻击
+
+8. ARP欺骗或ARP攻击
+9. CORE2
+10. 防ARP欺骗攻击
 
 ### ARP总结
 
