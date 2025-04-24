@@ -4,27 +4,31 @@
 
 SNMP为应用层协议，通过<font color="red">UDP</font>承载端口**161和162**
 
-<font color="red">不可靠，但效率高</font>，网络管理不会太多增加网络负载。
+<font color="red">不可靠，但效率高</font>，网络管理<font color="red">不会太多增加网络负载</font>。
 
 #### SNMP协议的操作－2个服务与2个端口
 
 ![image-20250318221623894](https://img.yatjay.top/md/20250318221623933.png)
 
 - 在<font color="red">客户机Agent</font>上安装<font color="red">SNMPService服务</font>，默认端口为<font color="red">UDP 161</font>，用来监听网管服务器的请求：网管服务器通过随机端口访问Agent的161端口，向其发送`get-request`等请求，获取Agent信息
-- 在<font color="red">网管服务器NMS</font>上安装<font color="red">SNMPTrap服务</font>，默认端口为<font color="red">UDP 162</font>，用来监听客户机Agent发送的异常信息：客户机Agent如有异常，使用自己的随机端口访问网管服务器的162端口，反馈自己的信息
+- 在<font color="red">网管服务器NMS</font>上安装<font color="red">SNMPTrap服务</font>，默认端口为<font color="red">UDP 162</font>，用来监听客户机Agent发送的异常信息：客户机Agent如有异常就会使用自己的随机端口访问网管服务器的162端口，反馈自己的信息
+
+注意：网管服务器和客户机Agent通信时，<font color="red">源端口都是随机端口，目的端口是指定端口</font>，客户机Agent的161端口并不直接和网管服务器的162端口通信
 
 #### SNMP协议的操作－5个报文
 
-- 为了简化书写，前三个可以简写为：<font color="red">get、get-next和set</font>
-- SNMP双端口：客户端用端口**161来接收get/set**，服务器端用端口**162来接收trap**。
+(极其重要，几乎每年都考)
 
-| 操作编号 | 分类                         | 名称             | 用途                         |
-| -------- | ---------------------------- | ---------------- | ---------------------------- |
-| 0        |                              | get-request      | 查询一个或多个变量的值       |
-| 1        | 网管找客户端（领导找下属）   | get-next-request | 在MIB树上检索下一个变量      |
-| 2        |                              | set-request      | 对一个或多个变量的值进行设置 |
-| 3        | 客户端反馈（下属向领导汇报） | get-response     | 对get/set报文做出响应        |
-| 4        |                              | trap             | 向管理进程报告代理发生的事件 |
+- 为了简化书写，前三个可以简写为：<font color="red">get、get-next和set</font>
+- SNMP双端口：客户端用端口<font color="red">**161来接收get/set**</font>，服务器端用端口<font color="red">**162来接收trap**</font>。
+
+| 操作编号 | 分类                         | 名称             | 用途                                                   |
+| -------- | ---------------------------- | ---------------- | ------------------------------------------------------ |
+| 0        |                              | get-request      | 查询一个或多个变量的值                                 |
+| 1        | 网管找客户端（领导找下属）   | get-next-request | 在**MIB树**上检索下一个变量                            |
+| 2        |                              | set-request      | 对一个或多个变量的值进行设置                           |
+| 3        | 客户端反馈（下属向领导汇报） | get-response     | 对get/set报文做出响应                                  |
+| 4        |                              | trap             | 客户端向管理进程报告代理发生的事件，一般是一些异常事件 |
 
 ### 例题
 
@@ -32,17 +36,19 @@ SNMP为应用层协议，通过<font color="red">UDP</font>承载端口**161和1
 
 ![image-20250318221933563](https://img.yatjay.top/md/20250318221933603.png)
 
+解析：基于UDP的SNMP协议特征：<font color="red">不可靠，但效率高</font>，网络管理<font color="red">不会太多增加网络负载</font>。
+
 #### 例题2
 
 ![image-20250318221942598](https://img.yatjay.top/md/20250318221942636.png)
 
-解析：管理端查询代理的状态用get报文，目标端口是161。
+解析：管理端查询代理的状态用get报文，是领导找下属，目标端口是161。
 
 #### 例题3
 
 ![image-20250318221952188](https://img.yatjay.top/md/20250318221952230.png)
 
-解析：SNMP Service使用端口161，SNMPTrap使用端口162。
+解析：SNMP Service使用端口161，SNMP Trap使用端口162。
 
 #### 例题4
 
@@ -61,6 +67,35 @@ SNMP为应用层协议，通过<font color="red">UDP</font>承载端口**161和1
 ![image-20250318222021212](https://img.yatjay.top/md/20250318222021249.png)
 
 解析：掌握SNMP的五个报文，trap用于上报异常事件（即主动通知管理者有关网络事件的发生)
+
+#### Z例题7
+
+![image-20250425003647690](https://img.yatjay.top/md/20250425003647738.png)
+
+解析：不要错选B，<font color="red">B描述的是客户端的trap报文，而题目问的是管理站的SNMPTrap服务的作用</font>。
+
+Trap报文和Trap服务的区别：
+
+- Trap报文：被管理站主动上报异常事件，即本题B选项所指
+- Trap服务：管理站接受被管理站发送来的trap信息，即本题C选项所指
+
+#### Z例题8
+
+![image-20250425004106429](https://img.yatjay.top/md/20250425004106471.png)
+
+#### Z例题9
+
+![image-20250425004128391](https://img.yatjay.top/md/20250425004128433.png)
+
+解析：题目不严谨，代理进程使用的是随机源端口、162目的端口向NMS管理服务器发送告警信息
+
+#### Z例题10
+
+![image-20250425004313692](https://img.yatjay.top/md/20250425004313738.png)
+
+#### Z例题11
+
+![image-20250425004353463](https://img.yatjay.top/md/20250425004353511.png)
 
 ### SNMP版本对比
 
