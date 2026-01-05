@@ -1,4 +1,20 @@
-# 基础入门-HTTP数据包&Postman构造&请求方法&请求头修改&状态码判断
+---
+title: 010-基础入门-HTTP数据包&Postman构造&请求方法&请求头修改&状态码判断
+date: 2025/9/27 16:25:00
+updated: 2025/9/27 21:15:51
+layout: 
+tags: 
+  - 网络安全
+  - 渗透测试
+  - Web漏洞
+categories: 
+  - PenetrationNotesNew
+  - 001-基础入门
+---
+
+
+
+# 010-基础入门-HTTP数据包&Postman构造&请求方法&请求头修改&状态码判断
 
 ![image-20250927234554038](https://img.yatjay.top/md/20250927234554201.png)
 

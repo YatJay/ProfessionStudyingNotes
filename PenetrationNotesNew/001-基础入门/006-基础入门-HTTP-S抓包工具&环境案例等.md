@@ -1,4 +1,18 @@
-# 第6天：基础入门-抓包技术&HTTPS协议&APP&小程序&PC应用&WEB&转发联动
+---
+title: 006-基础入门-抓包技术&HTTPS协议&APP&小程序&PC应用&WEB&转发联动
+date: 2025/9/20 16:25:00
+updated: 2025/9/20 21:15:51
+layout: 
+tags: 
+  - 网络安全
+  - 渗透测试
+  - Web漏洞
+categories: 
+  - PenetrationNotesNew
+  - 001-基础入门
+---
+
+# 006-基础入门-抓包技术&HTTPS协议&APP&小程序&PC应用&WEB&转发联动
 
 ![image-20250920180719317](https://img.yatjay.top/md/20250920180719404.png)
 

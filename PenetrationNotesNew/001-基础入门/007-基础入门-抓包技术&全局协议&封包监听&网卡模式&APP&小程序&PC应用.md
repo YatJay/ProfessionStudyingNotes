@@ -1,4 +1,18 @@
-# 基础入门-抓包技术&全局协议&封包监听&网卡模式&APP&小程序&PC应用
+---
+title: 007-基础入门-抓包技术&全局协议&封包监听&网卡模式&APP&小程序&PC应用
+date: 2025/9/23 16:25:00
+updated: 2025/9/23 21:15:51
+layout: 
+tags: 
+  - 网络安全
+  - 渗透测试
+  - Web漏洞
+categories: 
+  - PenetrationNotesNew
+  - 001-基础入门
+---
+
+# 007-基础入门-抓包技术&全局协议&封包监听&网卡模式&APP&小程序&PC应用
 
 ![image-20250923212528106](C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20250923212528106.png)
 
